@@ -17,7 +17,25 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/backlight.h>
-
+/*
+ * This is a port of the Advantage 2 built in dvorak layout
+ * The layout can be seen on the top of page 15:
+ * https://kinesis-ergo.com/wp-content/uploads/Adv2-Users-Manual-2-16-18.pdf
+ * In order for it to work, you mast use these zmk codes:
+ * https://zmk.dev/docs/codes/keyboard-keypad#symbols--punctuation
+ * EQUAL = and +
+ * MINUS - and _
+ * SLASH / and ?
+ * BACKSLASH \ and |
+ * SEMICOLON ; and :
+ * SINGLE_QUOTE ' and "
+ * COMMA  , and <
+ * PERIOD  . and >
+ * LEFT_BRACKET [ and {
+ * RIGHT _BRACKET ] and }
+ * GRAVE ` and ~
+ *
+*/
 / {
   behaviors {
     #include "macros.dtsi"
