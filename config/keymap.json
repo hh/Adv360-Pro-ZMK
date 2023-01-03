@@ -13,7 +13,7 @@
     [
             "&kp PG_UP",           "&kp N1",    "&kp N2",     "&kp N3",    "&kp N4",   "&kp N5",            "&tog 1",        "&mo 3",         "&kp N6",    "&kp N7",    "&kp N8",          "&kp N9",    "&kp N0", "&kp MINUS",
             "&kp PG_DN", "&kp SINGLE_QUOTE", "&kp COMMA", "&kp PERIOD",     "&kp P",    "&kp Y",             "&none",       "&tog 4",          "&kp F",     "&kp G",     "&kp C",           "&kp R",     "&kp L", "&kp SLASH",
-              "&kp ESC",            "&kp A",     "&kp O",      "&kp E",     "&kp U",    "&kp I",           "&kp F21",    "&kp LCTRL",   "&kp LEFT_ALT",                             "&kp RIGHT_ALT", "&kp RCTRL",   "&kp F22",    "&kp D",  "&kp H",  "&kp T",  "&kp N",  "&kp S",   "&kp BACKSLASH",
+              "&kp ESC",            "&kp A",     "&kp O",      "&kp E",     "&kp U",    "&kp I",           "&kp F18",    "&kp LCTRL",   "&kp LEFT_ALT",                             "&kp RIGHT_ALT", "&kp RCTRL",   "&kp F19",    "&kp D",  "&kp H",  "&kp T",  "&kp N",  "&kp S",   "&kp BACKSLASH",
        "&kp LEFT_SHIFT",    "&kp SEMICOLON",     "&kp Q",      "&kp J",     "&kp K",    "&kp X",             "&none",        "&none", "&kp LEFT_SHIFT",     "&none",     "&none", "&kp RIGHT_SHIFT",     "&none",     "&none",    "&kp B",  "&kp M",  "&kp W",  "&kp V",  "&kp Z", "&kp RIGHT_SHIFT",
                 "&mo 2",        "&kp GRAVE", "&kp EQUAL",   "&kp LEFT", "&kp RIGHT", "&kp BSPC",           "&kp TAB", "&kp LEFT_GUI",  "&kp RIGHT_GUI", "&kp ENTER", "&kp SPACE",          "&kp UP",  "&kp DOWN",  "&kp LBKT", "&kp RBKT",  "&mo 2"
     ], [
