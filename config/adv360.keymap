@@ -55,7 +55,7 @@
         &trans &trans &trans &trans &trans &trans  &none                                           &none &trans &trans &trans &trans  &trans  &trans
         &trans &trans &trans &trans &trans &trans  &none        &trans &trans &trans &trans        &none &trans &trans &trans &trans  &trans  &trans
         &trans &trans &trans &trans &trans &trans                      &trans &trans                     &trans &trans &trans &trans  &trans  &trans
-        &trans &trans &trans &trans &trans               &trans &trans &trans &trans &trans &trans              &trans &trans &trans  &trans  &trans
+        &trans &trans &trans &kp HOME &kp END        &trans &kp DELETE &trans &trans &trans &trans  &kp PAGE_UP &kp PAGE_DOWN &trans  &trans  &trans
       >;
     };
     mod {
