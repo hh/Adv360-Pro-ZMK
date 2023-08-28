@@ -55,7 +55,7 @@
         &none &none        &none        &none        &none        &none        &bootloader                                                               &bootloader            &none        &none        &none        &none &none &none
         &none &none        &none        &none        &none        &none        &none            &out OUT_USB &none &none &out OUT_BLE                    &none                  &none        &none        &none        &none &none &none
         &none &none        &none        &none        &none        &none                                      &none &none                                                        &none        &none        &none        &none &none &none
-        &none &none        &bl BT_CLR   &bl BL_INC   &bl BL_DEC              &rgb_ug RGB_TOG &bl BL_TOG      &none &none      &bl BL_TOG &rgb_ug RGB_TOG                                     &bl BL_INC   &bl BL_DEC   &none &none &none
+        &none &none        &bl BT_CLR   &bl BL_INC   &bl BL_DEC    &rgb_ug RGB_TOG &bl BL_TOG   &ext_power EP_OFF  &none      &bl BL_TOG &rgb_ug RGB_TOG                                      &bl BL_INC   &bl BL_DEC   &none &none &none
       >;
     };
   };
