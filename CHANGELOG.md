@@ -125,6 +125,7 @@ There have beeen 5 branches of ZMK used for the 360 Pro so far. Beta branches ar
 | [adv360-z3.2](https://github.com/ReFil/zmk/tree/adv360-z3.2) | 7/6/2023 | 20/10/2023 | [V3.0](https://github.com/KinesisCorporation/Adv360-Pro-ZMK/tree/V3.0) (Up to commit 82494e7) |
 | [adv360-z3.2-2](https://github.com/ReFil/zmk/tree/adv360-z3.2-2) | 20/10/2023 | 1/14/2024 | [V3.0](https://github.com/KinesisCorporation/Adv360-Pro-ZMK/tree/V3.0) (Up to commit 4a5003a) |
 | [adv360-z3.2-3](https://github.com/ReFil/zmk/tree/adv360-z3.2-3) | 1/14/2024 | 4/5/2024 | [V3.0](https://github.com/KinesisCorporation/Adv360-Pro-ZMK/tree/V3.0) (Up to commit 742d19e) |
+<<<<<<< HEAD
 | [adv360-z3.5](https://github.com/ReFil/zmk/tree/adv360-z3.5) | 4/5/2024 | 2/6/2025 | [V3.0](https://github.com/KinesisCorporation/Adv360-Pro-ZMK/tree/V3.0) (Up to commit 8988c99) |
 | [adv360-z3.5-2](https://github.com/ReFil/zmk/tree/adv360-z3.5-2) | 2/6/2025 | To Date | [V3.0](https://github.com/KinesisCorporation/Adv360-Pro-ZMK/tree/V3.0) (Current) |
 
@@ -136,6 +137,13 @@ There have beeen 5 branches of ZMK used for the 360 Pro so far. Beta branches ar
 
 1/22/2025 - Send RGB effect over to the peripheral
 
+=======
+| [adv360-z3.5](https://github.com/ReFil/zmk/tree/adv360-z3.5) | 4/5/2024 | 1/17/2025 | [V3.0](https://github.com/KinesisCorporation/Adv360-Pro-ZMK/tree/V3.0) (Up to commit 8988c99) |
+| [adv360-z3.5-2](https://github.com/ReFil/zmk/tree/adv360-z3.5-2) | 1/17/2025 | To Date | [V3.0](https://github.com/KinesisCorporation/Adv360-Pro-ZMK/tree/V3.0) (Current) |
+
+### adv360-z3.5-2
+
+>>>>>>> 377a187 (Update CHANGELOG.md)
 1/14/2025 - Prevent ext power from saving to flash
 
 1/14/2025 - Transmit RGB "on" state over the bluetooth connection
