@@ -1,5 +1,9 @@
 # SPDX-License-Identifier: MIT
 
+CONFIG_ZMK_KEY_REPEAT=y
+CONFIG_ZMK_KEY_REPEAT_DELAY=200    # Initial delay before repeat (in ms)
+CONFIG_ZMK_KEY_REPEAT_RATE=50      # Time between repeated presses (in ms)
+
 config BOARD_ENABLE_DCDC
     bool "Enable DCDC mode"
     select SOC_DCDC_NRF52X
