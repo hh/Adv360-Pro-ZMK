@@ -1,1 +1,10 @@
 /firmware/*.uf2
+/firmware/firmware-no-clique/
+proxy-cas.pem
+
+# West workspace (local build only)
+/.west/
+/zephyr/
+/zmk/
+/modules/
+/build/
