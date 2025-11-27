@@ -718,6 +718,364 @@ One HID Service with multiple collections:
 
 ---
 
+## badjeff/zmk-split-peripheral-input-relay Analysis
+
+**Location**: `~/src/badjeff/zmk-split-peripheral-input-relay`
+
+This archived module (superseded by ZMK PR #2477) provides an excellent reference implementation
+for BLE-based input relay. While it relays input from split peripherals (not external HOGP devices),
+the patterns are directly applicable.
+
+### File Structure (~588 LOC total)
+
+| File | Lines | Purpose |
+|------|-------|---------|
+| `src/input_relay_central.c` | 406 | Central side: GATT discovery, subscription, event injection |
+| `src/input_relay_peripheral.c` | 129 | Peripheral side: captures input, sends via GATT notify |
+| `src/virtual_input.c` | 20 | Virtual device for re-emitting events on central |
+| `include/.../event.h` | 15 | Event structure definition |
+| `include/.../uuid.h` | 18 | Custom GATT service/characteristic UUIDs |
+
+### Key Patterns to Reuse
+
+**1. Slot-based connection management** (`input_relay_central.c:24-40`)
+```c
+enum ir_peripheral_slot_state {
+    PERIPHERAL_SLOT_STATE_OPEN,
+    PERIPHERAL_SLOT_STATE_CONNECTING,
+    PERIPHERAL_SLOT_STATE_CONNECTED,
+};
+
+struct ir_peripheral_slot {
+    enum ir_peripheral_slot_state state;
+    struct bt_conn *conn;
+    struct bt_gatt_discover_params discover_params;
+    struct bt_gatt_subscribe_params subscribe_params;
+    // ...
+};
+```
+
+**2. Connection callbacks with role filtering** (`input_relay_central.c:304-320`)
+```c
+static void split_central_connected(struct bt_conn *conn, uint8_t conn_err) {
+    bt_conn_get_info(conn, &info);
+    if (info.role != BT_CONN_ROLE_CENTRAL) {
+        return;  // Skip peripheral connections
+    }
+    // Reserve slot, start GATT discovery
+}
+```
+
+**3. GATT service discovery chain** (`input_relay_central.c:228-280`)
+```
+bt_gatt_discover(PRIMARY)
+  → split_central_service_discovery_func()
+    → bt_gatt_discover(CHARACTERISTIC)
+      → split_central_chrc_discovery_func()
+        → bt_gatt_subscribe()
+```
+
+**4. Message queue + work queue for event processing** (`input_relay_central.c:130-155`)
+```c
+K_MSGQ_DEFINE(peripheral_input_relay_event_msgq, sizeof(struct input_event), ...);
+K_WORK_DEFINE(peripheral_input_event_work, peripheral_input_relay_event_work_callback);
+
+// In notify callback:
+k_msgq_put(&peripheral_input_relay_event_msgq, &ev, K_NO_WAIT);
+k_work_submit(&peripheral_input_event_work);
+
+// In work callback:
+while (k_msgq_get(&msgq, &ev, K_NO_WAIT) == 0) {
+    input_report_rel(ev.dev, ev.code, ev.value, ev.sync, K_NO_WAIT);
+}
+```
+
+**5. Device tree driven configuration** (`input_relay_central.c:369-390`)
+```c
+#define INPUT_RELY_CFG_DEFINE(n)                                              \
+    static const struct split_peripheral_input_relay_config config_##n = {    \
+        .relay_channel = DT_PROP(DT_DRV_INST(n), relay_channel),              \
+        .device = DEVICE_DT_GET(DT_INST_PHANDLE(n, device)),                  \
+    };
+DT_INST_FOREACH_STATUS_OKAY(INPUT_RELY_CFG_DEFINE)
+```
+
+### Differences for HOGP Implementation
+
+| Aspect | badjeff module | HOGP client (new) |
+|--------|----------------|-------------------|
+| Connection initiation | Piggybacks on existing split connection | Must scan/connect independently |
+| Service UUID | Custom `ZMK_SPLIT_BT_IR_SERVICE_UUID` | Standard HID `0x1812` |
+| Data format | Custom `zmk_split_bt_input_relay_event` | Raw HID reports (need parsing) |
+| Pairing | Uses split keyboard pairing | Needs own pairing flow |
+| Device discovery | Already connected | Must scan for HID devices |
+
+### What We Can Reuse Directly
+
+1. **Slot management pattern** - same struct, different state machine
+2. **GATT discovery flow** - change UUIDs, same bt_gatt_discover chain
+3. **Message queue + work queue** - identical pattern for async event handling
+4. **Virtual device injection** - `input_report()` is the right API
+5. **Device tree macros** - same pattern for config
+
+### What We Must Add
+
+1. **BLE scanning** for HID devices (UUID filter for 0x1812)
+2. **HID Report Map parsing** to understand device format
+3. **HID report parsing** to extract buttons/X/Y/wheel
+4. **Pairing behavior** (`&hogp HOGP_PAIR`)
+5. **Bond storage** for auto-reconnect
+
+### Estimated Delta
+
+Starting from badjeff's ~600 LOC base:
+- Scanning logic: +150 LOC
+- HID parsing: +300 LOC
+- Pairing behavior: +100 LOC
+- Settings storage: +100 LOC
+- **Total estimate: ~1200-1500 LOC** (vs original 2000 estimate)
+
+---
+
+## Official ZMK input_split.c Comparison
+
+**Location**: `~/src/refil/zmk/app/src/pointing/input_split.c` (69 lines)
+
+The official ZMK implementation is much more compact because:
+1. It integrates with the existing split BLE service (no separate connection)
+2. Uses `zmk_split_bt_report_input()` which is part of the split subsystem
+3. Virtual device is just a devicetree-defined proxy
+
+Key function on central side:
+```c
+int zmk_input_split_report_peripheral_event(uint8_t reg, uint8_t type,
+                                            uint16_t code, int32_t value, bool sync) {
+    for (size_t i = 0; i < ARRAY_SIZE(proxy_inputs); i++) {
+        if (reg == proxy_inputs[i].reg) {
+            return input_report(proxy_inputs[i].dev, type, code, value, sync, K_NO_WAIT);
+        }
+    }
+    return -ENODEV;
+}
+```
+
+This confirms `input_report()` is the correct injection point for our HOGP client.
+
+---
+
+## ReFil Branch Analysis
+
+### Branch Overview (by date)
+
+| Branch | Date | Purpose | Relevance |
+|--------|------|---------|-----------|
+| `Form-studio-2` | Apr 2025 | Latest Kinesis Form development | Best architecture, too divergent |
+| `multi-touch-all-fingers` | Apr 2024 | 5-finger PTP in single report | **Ported** - proper PTP |
+| `unified-ptp` | Feb 2024 | PTP refinements | Minor tweaks only |
+| `multi-touch-one-contact` | Apr 2024 | 1-finger-per-report PTP | Wrong approach, skipped |
+| `form-mouse` | May 2024 | Mouse-mode only | Not needed |
+| `trackpad-reporting` | Aug 2023 | Early PTP work | Superseded |
+| `Trackpad` | Sep 2023 | WIP trackpad | Superseded |
+
+### What We Ported
+
+From `multi-touch-all-fingers` branch:
+- 5-finger PTP report structure
+- `zmk_hid_ptp_set(f0, f1, f2, f3, f4, contact_count, scan_time, buttons)`
+- Proper Windows PTP compliance for gestures
+
+---
+
+## Form-studio-2 Architecture Analysis (Future Reference)
+
+The `Form-studio-2` branch (April 2025) has a cleaner modular architecture that separates
+mouse/trackpad code into its own module. While too divergent to port directly (515 files changed),
+it provides a better pattern for future development.
+
+### Module Structure
+
+```
+app/src/mouse/
+├── CMakeLists.txt      # Conditional compilation
+├── Kconfig             # CONFIG_ZMK_MOUSE, CONFIG_ZMK_TRACKPAD
+├── hid.c               # PTP report management (~170 LOC)
+├── hog.c               # BLE GATT service (~360 LOC)
+├── usb_hid.c           # USB HID device (~215 LOC)
+├── trackpad.c          # Cirque driver (~250 LOC)
+└── input_listener.c    # Generic input → HID (~280 LOC)
+
+app/include/zmk/mouse/
+├── hid.h               # HID descriptor + structs (~310 LOC)
+├── hog.h               # BLE API
+├── usb_hid.h           # USB API
+├── trackpad.h          # Trackpad API
+└── types.h             # Type definitions
+```
+
+### Key Improvements Over multi-touch-all-fingers
+
+**1. Configurable finger count via LISTIFY macro**
+
+```c
+// HID descriptor generates finger collections based on config
+#define TRACKPAD_FINGER_DESC(n, c) \
+    HID_USAGE(HID_USAGE_DIGITIZERS_FINGER), \
+    HID_COLLECTION(HID_COLLECTION_LOGICAL), \
+    // ... finger data ...
+    HID_END_COLLECTION,
+
+static const uint8_t zmk_mouse_hid_report_desc[] = {
+    LISTIFY(CONFIG_ZMK_TRACKPAD_FINGERS, TRACKPAD_FINGER_DESC, ())
+    // ...
+};
+```
+
+**2. Array-based finger storage**
+
+```c
+// Form-studio-2 (cleaner)
+struct zmk_hid_ptp_report_body {
+    struct zmk_ptp_finger fingers[CONFIG_ZMK_TRACKPAD_FINGERS];
+    uint16_t scan_time;
+    uint8_t contact_count : 4;
+    uint8_t button1 : 1;
+    uint8_t button2 : 1;
+    uint8_t button3 : 1;
+    uint8_t padding : 1;
+} __packed;
+
+// multi-touch-all-fingers (what we have)
+struct zmk_hid_ptp_report_body {
+    struct zmk_ptp_finger finger0;
+    struct zmk_ptp_finger finger1;
+    struct zmk_ptp_finger finger2;
+    struct zmk_ptp_finger finger3;
+    struct zmk_ptp_finger finger4;
+    // ...
+} __packed;
+```
+
+**3. Per-finger API with auto-management**
+
+```c
+// Form-studio-2 API
+int zmk_mouse_hid_set_ptp_finger(struct zmk_ptp_finger finger);  // Auto-manages array
+void zmk_mouse_hid_ptp_clear_lifted_fingers(void);               // Auto-cleanup
+void zmk_mouse_hid_ptp_update_scan_time(void);                   // Auto-timestamp
+
+// vs multi-touch-all-fingers (manual)
+void zmk_hid_ptp_set(f0, f1, f2, f3, f4, contact_count, scan_time, buttons);
+```
+
+**4. Cleaner finger struct with bitfields**
+
+```c
+// Form-studio-2
+struct zmk_ptp_finger {
+    uint8_t touch_valid : 1;
+    uint8_t tip_switch : 1;
+    uint8_t contact_id : 4;
+    uint8_t padding : 2;
+    uint16_t x;
+    uint16_t y;
+} __packed;
+
+// multi-touch-all-fingers
+struct zmk_ptp_finger {
+    uint8_t confidence_tip;  // Combined field
+    uint8_t contact_id;
+    uint16_t x;
+    uint16_t y;
+} __packed;
+```
+
+**5. input_listener.c - Generic input handling**
+
+This is the most valuable piece for HOGP integration:
+
+```c
+// Handles Zephyr input subsystem events → HID reports
+static void input_handler(const struct input_listener_config *config,
+                          struct input_listener_data *data,
+                          struct input_event *evt) {
+    switch (evt->type) {
+    case INPUT_EV_REL:   // Relative mouse movement
+        handle_rel_code(data, evt);
+        break;
+    case INPUT_EV_ABS:   // Absolute/multitouch (PTP)
+        handle_abs_code(config, data, evt);
+        break;
+    case INPUT_EV_KEY:   // Buttons
+        handle_key_code(config, data, evt);
+        break;
+    }
+
+    if (evt->sync) {
+        // Send accumulated data
+        switch (config->mode) {
+        case INPUT_LISTENER_MODE_MOUSE:
+            zmk_endpoints_send_mouse_report();
+            break;
+        case INPUT_LISTENER_MODE_PTP:
+            zmk_mouse_hid_ptp_update_scan_time();
+            zmk_endpoints_send_ptp_report();
+            zmk_mouse_hid_ptp_clear_lifted_fingers();
+            break;
+        }
+    }
+}
+```
+
+**Multitouch slot handling:**
+```c
+case INPUT_ABS_MT_SLOT:
+    // Switch to different finger
+    data->ptp.finger_idx = evt->value;
+    break;
+case INPUT_ABS_X:
+    data->ptp.data.x = evt->value;
+    break;
+case INPUT_ABS_Y:
+    data->ptp.data.y = evt->value;
+    break;
+```
+
+### Why This Matters for HOGP
+
+With Form-studio-2 architecture, HOGP integration would be cleaner:
+
+```
+Current approach (multi-touch-all-fingers):
+  BLE HID Device → hogp_central.c → zmk_hid_ptp_set(f0,f1,f2,f3,f4,...) → endpoints
+
+Form-studio-2 approach:
+  BLE HID Device → hogp_central.c → input_report() → input_listener → auto-managed
+                                    ↑
+                                    Zephyr input subsystem
+```
+
+The `input_listener.c` pattern allows us to:
+1. Parse BLE HID reports in `hogp_central.c`
+2. Inject events via `input_report(dev, INPUT_ABS_MT_SLOT, finger_id, ...)`
+3. Let the existing infrastructure handle PTP report building
+
+### Porting Considerations
+
+**Minimum to port (~1000 LOC new, -265 LOC removed):**
+- `app/src/mouse/` directory structure
+- `hid.c`, `hid.h` - Report management
+- Modify `endpoints.c` to route to module
+- Remove mouse code from main `hid.c`, `hog.c`, `usb_hid.c`
+
+**Skip for now:**
+- `trackpad.c` - Cirque-specific, not needed for HOGP
+- `input_listener.c` - Nice-to-have, not required for PoC
+
+**Decision:** Stick with `multi-touch-all-fingers` for PoC. The API is less elegant but functional.
+Consider refactoring to Form-studio-2 architecture after basic HOGP works.
+
+---
+
 ## Date
 
 Research conducted: November 26-27, 2025
