@@ -4,10 +4,12 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: refil
       url-base: https://github.com/refil
+    - name: hh
+      url-base: https://github.com/hh
   projects:
     - name: zmk
-      remote: refil
-      revision: adv360-z3.5-2
+      remote: hh
+      revision: feat/hogp-central
       import: app/west.yml
   self:
     path: config
