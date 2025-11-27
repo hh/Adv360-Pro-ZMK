@@ -31,6 +31,7 @@
         zmk,battery = &vbatt;
         zmk,physical-layout = &physical_layout0;
         zmk,underglow = &led_strip;
+        zmk,indicators = &led_strip;
     };
 
     matrix_transform0: keymap_transform_0 {
