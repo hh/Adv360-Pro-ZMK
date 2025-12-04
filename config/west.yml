@@ -1,13 +1,11 @@
 manifest:
   remotes:
-    - name: zmkfirmware
-      url-base: https://github.com/zmkfirmware
-    - name: hh
-      url-base: https://github.com/hh
+    - name: refil
+      url-base: https://github.com/refil
   projects:
     - name: zmk
-      remote: hh
-      revision: touchpad
+      remote: refil
+      revision: adv360-z3.5-2
       import: app/west.yml
   self:
     path: config
