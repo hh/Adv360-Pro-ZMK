@@ -1,0 +1,156 @@
+menu "zmk-hogp (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk-hogp)"
+osource "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk-hogp/Kconfig"
+config ZEPHYR_ZMK_HOGP_MODULE
+	bool
+	default y
+endmenu
+menu "nanopb (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/lib/nanopb)"
+osource "$(ZEPHYR_NANOPB_KCONFIG)"
+config ZEPHYR_NANOPB_MODULE
+	bool
+	default y
+endmenu
+menu "acpica (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/lib/acpica)"
+osource "$(ZEPHYR_ACPICA_KCONFIG)"
+config ZEPHYR_ACPICA_MODULE
+	bool
+	default y
+endmenu
+menu "canopennode (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/lib/canopennode)"
+osource "$(ZEPHYR_CANOPENNODE_KCONFIG)"
+config ZEPHYR_CANOPENNODE_MODULE
+	bool
+	default y
+endmenu
+menu "cmsis (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/hal/cmsis)"
+osource "$(ZEPHYR_CMSIS_KCONFIG)"
+config ZEPHYR_CMSIS_MODULE
+	bool
+	default y
+endmenu
+menu "cmsis-dsp (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/lib/cmsis-dsp)"
+osource "$(ZEPHYR_CMSIS_DSP_KCONFIG)"
+config ZEPHYR_CMSIS_DSP_MODULE
+	bool
+	default y
+endmenu
+menu "cmsis-nn (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/lib/cmsis-nn)"
+osource "$(ZEPHYR_CMSIS_NN_KCONFIG)"
+config ZEPHYR_CMSIS_NN_MODULE
+	bool
+	default y
+endmenu
+menu "fatfs (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/fs/fatfs)"
+osource "$(ZEPHYR_FATFS_KCONFIG)"
+config ZEPHYR_FATFS_MODULE
+	bool
+	default y
+endmenu
+menu "hal_ambiq (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/hal/ambiq)"
+osource "$(ZEPHYR_HAL_AMBIQ_KCONFIG)"
+config ZEPHYR_HAL_AMBIQ_MODULE
+	bool
+	default y
+endmenu
+menu "hal_espressif (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/hal/espressif)"
+osource "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/hal/espressif/zephyr/Kconfig"
+config ZEPHYR_HAL_ESPRESSIF_MODULE
+	bool
+	default y
+endmenu
+menu "hal_ethos_u (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/hal/ethos_u)"
+osource "$(ZEPHYR_HAL_ETHOS_U_KCONFIG)"
+config ZEPHYR_HAL_ETHOS_U_MODULE
+	bool
+	default y
+endmenu
+menu "hal_gigadevice (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/hal/gigadevice)"
+osource "$(ZEPHYR_HAL_GIGADEVICE_KCONFIG)"
+config ZEPHYR_HAL_GIGADEVICE_MODULE
+	bool
+	default y
+endmenu
+menu "hal_nordic (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/hal/nordic)"
+osource "$(ZEPHYR_HAL_NORDIC_KCONFIG)"
+config ZEPHYR_HAL_NORDIC_MODULE
+	bool
+	default y
+endmenu
+menu "hal_rpi_pico (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/hal/rpi_pico)"
+osource "$(ZEPHYR_HAL_RPI_PICO_KCONFIG)"
+config ZEPHYR_HAL_RPI_PICO_MODULE
+	bool
+	default y
+endmenu
+menu "hal_telink (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/hal/telink)"
+osource "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/hal/telink/Kconfig"
+config ZEPHYR_HAL_TELINK_MODULE
+	bool
+	default y
+endmenu
+menu "liblc3 (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/lib/liblc3)"
+osource "$(ZEPHYR_LIBLC3_KCONFIG)"
+config ZEPHYR_LIBLC3_MODULE
+	bool
+	default y
+endmenu
+menu "littlefs (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/fs/littlefs)"
+osource "$(ZEPHYR_LITTLEFS_KCONFIG)"
+config ZEPHYR_LITTLEFS_MODULE
+	bool
+	default y
+endmenu
+menu "lvgl (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/lib/gui/lvgl)"
+osource "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/lib/gui/lvgl/Kconfig"
+config ZEPHYR_LVGL_MODULE
+	bool
+	default y
+endmenu
+menu "mbedtls (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/crypto/mbedtls)"
+osource "$(ZEPHYR_MBEDTLS_KCONFIG)"
+config ZEPHYR_MBEDTLS_MODULE
+	bool
+	default y
+endmenu
+menu "percepio (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/debug/percepio)"
+osource "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/debug/percepio/zephyr/Kconfig"
+config ZEPHYR_PERCEPIO_MODULE
+	bool
+	default y
+endmenu
+menu "picolibc (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/lib/picolibc)"
+osource "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/lib/picolibc/zephyr/Kconfig"
+config ZEPHYR_PICOLIBC_MODULE
+	bool
+	default y
+endmenu
+menu "segger (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/debug/segger)"
+osource "$(ZEPHYR_SEGGER_KCONFIG)"
+config ZEPHYR_SEGGER_MODULE
+	bool
+	default y
+endmenu
+menu "trusted-firmware-a (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/tee/tf-a/trusted-firmware-a)"
+osource "$(ZEPHYR_TRUSTED_FIRMWARE_A_KCONFIG)"
+config ZEPHYR_TRUSTED_FIRMWARE_A_MODULE
+	bool
+	default y
+endmenu
+menu "uoscore-uedhoc (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/lib/uoscore-uedhoc)"
+osource "$(ZEPHYR_UOSCORE_UEDHOC_KCONFIG)"
+config ZEPHYR_UOSCORE_UEDHOC_MODULE
+	bool
+	default y
+endmenu
+menu "zcbor (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/modules/lib/zcbor)"
+osource "$(ZEPHYR_ZCBOR_KCONFIG)"
+config ZEPHYR_ZCBOR_MODULE
+	bool
+	default y
+endmenu
+menu "module (/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/module)"
+osource "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/module/Kconfig"
+config ZEPHYR_MODULE_MODULE
+	bool
+	default y
+endmenu

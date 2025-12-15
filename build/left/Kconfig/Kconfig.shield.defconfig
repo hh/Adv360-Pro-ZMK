@@ -1,0 +1,2 @@
+osource "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/boards/shields/*/Kconfig.defconfig"
+osource "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/boards/shields/*/Kconfig.defconfig"

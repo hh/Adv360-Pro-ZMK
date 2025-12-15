@@ -1,0 +1,2078 @@
+# 0 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/misc/empty_file.c"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/boards/arm/adv360/adv360_left.dts" 1
+
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/boards/arm/adv360/adv360.dtsi" 1
+
+
+
+
+
+
+
+/dts-v1/;
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/nordic/nrf52840_qiaa.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/common/mem.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/nordic/nrf52840_qiaa.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/nordic/nrf52840.dtsi" 1 3 4
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/armv7-m.dtsi" 1 3 4
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/common/skeleton.dtsi" 1 3 4
+# 9 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/common/skeleton.dtsi" 3 4
+/ {
+ #address-cells = <1>;
+ #size-cells = <1>;
+ chosen { };
+ aliases { };
+};
+# 4 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/armv7-m.dtsi" 2 3 4
+
+/ {
+ soc {
+  #address-cells = <1>;
+  #size-cells = <1>;
+  compatible = "simple-bus";
+  interrupt-parent = <&nvic>;
+  ranges;
+
+  nvic: interrupt-controller@e000e100 {
+   #address-cells = <1>;
+   compatible = "arm,v7m-nvic";
+   reg = <0xe000e100 0xc00>;
+   interrupt-controller;
+   #interrupt-cells = <2>;
+  };
+
+  systick: timer@e000e010 {
+   compatible = "arm,armv7m-systick";
+   reg = <0xe000e010 0x10>;
+  };
+ };
+};
+# 4 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/nordic/nrf52840.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/nordic/nrf_common.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/dt-bindings/adc/adc.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/nordic/nrf_common.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/dt-bindings/adc/nrf-adc.h" 1 3 4
+# 10 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/dt-bindings/adc/nrf-adc.h" 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/dt-bindings/dt-util.h" 1 3 4
+# 19 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/dt-bindings/dt-util.h" 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_macro.h" 1 3 4
+# 34 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_macro.h" 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_internal.h" 1 3 4
+# 18 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_internal.h" 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_loops.h" 1 3 4
+# 1083 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_loops.h" 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_listify.h" 1 3 4
+# 1084 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_loops.h" 2 3 4
+# 19 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
+# 153 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_internal.h" 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_internal_is_eq.h" 1 3 4
+# 154 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
+# 184 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_internal.h" 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_internal_util_inc.h" 1 3 4
+# 185 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_internal_util_dec.h" 1 3 4
+# 188 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_internal_util_x2.h" 1 3 4
+# 191 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
+# 35 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/sys/util_macro.h" 2 3 4
+# 20 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/dt-bindings/dt-util.h" 2 3 4
+# 11 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/dt-bindings/adc/nrf-adc.h" 2 3 4
+# 9 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/nordic/nrf_common.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/dt-bindings/gpio/gpio.h" 1 3 4
+# 10 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/nordic/nrf_common.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/dt-bindings/i2c/i2c.h" 1 3 4
+# 11 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/nordic/nrf_common.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/dt-bindings/pinctrl/nrf-pinctrl.h" 1 3 4
+# 12 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/nordic/nrf_common.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/dt-bindings/pwm/pwm.h" 1 3 4
+# 13 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/nordic/nrf_common.dtsi" 2 3 4
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/common/freq.h" 1 3 4
+# 15 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/nordic/nrf_common.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/nordic/override.dtsi" 1 3 4
+# 16 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/nordic/nrf_common.dtsi" 2 3 4
+# 24 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/nordic/nrf_common.dtsi" 3 4
+/ {
+ pinctrl: pin-controller {
+
+
+
+
+  compatible = "nordic,nrf-pinctrl";
+ };
+
+ rng_hci: entropy_bt_hci {
+  compatible = "zephyr,bt-hci-entropy";
+  status = "okay";
+ };
+
+ sw_pwm: sw-pwm {
+  compatible = "nordic,nrf-sw-pwm";
+  status = "disabled";
+  generator = <&timer1>;
+  clock-prescaler = <0>;
+  #pwm-cells = <3>;
+ };
+};
+
+&systick {
+
+
+
+
+ status = "disabled";
+};
+# 5 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/nordic/nrf52840.dtsi" 2 3 4
+
+/ {
+ chosen {
+  zephyr,entropy = &rng;
+  zephyr,flash-controller = &flash_controller;
+ };
+
+ cpus {
+  #address-cells = <1>;
+  #size-cells = <0>;
+
+  cpu@0 {
+   device_type = "cpu";
+   compatible = "arm,cortex-m4f";
+   reg = <0>;
+   #address-cells = <1>;
+   #size-cells = <1>;
+
+   itm: itm@e0000000 {
+    compatible = "arm,armv7m-itm";
+    reg = <0xe0000000 0x1000>;
+    swo-ref-frequency = <32000000>;
+   };
+  };
+ };
+
+ soc {
+  ficr: ficr@10000000 {
+   compatible = "nordic,nrf-ficr";
+   reg = <0x10000000 0x1000>;
+   status = "okay";
+  };
+
+  uicr: uicr@10001000 {
+   compatible = "nordic,nrf-uicr";
+   reg = <0x10001000 0x1000>;
+   status = "okay";
+  };
+
+  sram0: memory@20000000 {
+   compatible = "mmio-sram";
+  };
+
+  clock: clock@40000000 {
+   compatible = "nordic,nrf-clock";
+   reg = <0x40000000 0x1000>;
+   interrupts = <0 1>;
+   status = "okay";
+  };
+
+  power: power@40000000 {
+   compatible = "nordic,nrf-power";
+   reg = <0x40000000 0x1000>;
+   interrupts = <0 1>;
+   status = "okay";
+   #address-cells = <1>;
+   #size-cells = <1>;
+
+   gpregret1: gpregret1@4000051c {
+    #address-cells = <1>;
+    #size-cells = <1>;
+    compatible = "nordic,nrf-gpregret";
+    reg = <0x4000051c 0x1>;
+    status = "okay";
+   };
+
+   gpregret2: gpregret2@40000520 {
+    #address-cells = <1>;
+    #size-cells = <1>;
+    compatible = "nordic,nrf-gpregret";
+    reg = <0x40000520 0x1>;
+    status = "okay";
+   };
+  };
+
+  radio: radio@40001000 {
+   compatible = "nordic,nrf-radio";
+   reg = <0x40001000 0x1000>;
+   interrupts = <1 1>;
+   status = "okay";
+   ieee802154-supported;
+   ble-2mbps-supported;
+   ble-coded-phy-supported;
+   tx-high-power-supported;
+
+   ieee802154: ieee802154 {
+    compatible = "nordic,nrf-ieee802154";
+    status = "disabled";
+   };
+  };
+
+  uart0: uart@40002000 {
+
+
+   compatible = "nordic,nrf-uarte";
+   reg = <0x40002000 0x1000>;
+   interrupts = <2 1>;
+   status = "disabled";
+  };
+
+  i2c0: i2c@40003000 {
+
+
+
+
+
+
+
+   compatible = "nordic,nrf-twim";
+   #address-cells = <1>;
+   #size-cells = <0>;
+   reg = <0x40003000 0x1000>;
+   clock-frequency = <100000>;
+   interrupts = <3 1>;
+   easydma-maxcnt-bits = <16>;
+   status = "disabled";
+  };
+
+  spi0: spi@40003000 {
+
+
+
+
+
+
+
+   compatible = "nordic,nrf-spim";
+   #address-cells = <1>;
+   #size-cells = <0>;
+   reg = <0x40003000 0x1000>;
+   interrupts = <3 1>;
+   max-frequency = <((8) * 1000 * 1000)>;
+   easydma-maxcnt-bits = <16>;
+   status = "disabled";
+  };
+
+  i2c1: i2c@40004000 {
+
+
+
+
+
+
+
+   compatible = "nordic,nrf-twim";
+   #address-cells = <1>;
+   #size-cells = <0>;
+   reg = <0x40004000 0x1000>;
+   clock-frequency = <100000>;
+   interrupts = <4 1>;
+   easydma-maxcnt-bits = <16>;
+   status = "disabled";
+  };
+
+  spi1: spi@40004000 {
+
+
+
+
+
+
+
+   compatible = "nordic,nrf-spim";
+   #address-cells = <1>;
+   #size-cells = <0>;
+   reg = <0x40004000 0x1000>;
+   interrupts = <4 1>;
+   max-frequency = <((8) * 1000 * 1000)>;
+   easydma-maxcnt-bits = <16>;
+   status = "disabled";
+  };
+
+  nfct: nfct@40005000 {
+   compatible = "nordic,nrf-nfct";
+   reg = <0x40005000 0x1000>;
+   interrupts = <5 1>;
+   status = "okay";
+  };
+
+  gpiote: gpiote@40006000 {
+   compatible = "nordic,nrf-gpiote";
+   reg = <0x40006000 0x1000>;
+   interrupts = <6 5>;
+   status = "disabled";
+  };
+
+  adc: adc@40007000 {
+   compatible = "nordic,nrf-saadc";
+   reg = <0x40007000 0x1000>;
+   interrupts = <7 1>;
+   status = "disabled";
+   #io-channel-cells = <1>;
+  };
+
+  timer0: timer@40008000 {
+   compatible = "nordic,nrf-timer";
+   status = "disabled";
+   reg = <0x40008000 0x1000>;
+   cc-num = <4>;
+   max-bit-width = <32>;
+   interrupts = <8 1>;
+   prescaler = <0>;
+  };
+
+  timer1: timer@40009000 {
+   compatible = "nordic,nrf-timer";
+   status = "disabled";
+   reg = <0x40009000 0x1000>;
+   cc-num = <4>;
+   max-bit-width = <32>;
+   interrupts = <9 1>;
+   prescaler = <0>;
+  };
+
+  timer2: timer@4000a000 {
+   compatible = "nordic,nrf-timer";
+   status = "disabled";
+   reg = <0x4000a000 0x1000>;
+   cc-num = <4>;
+   max-bit-width = <32>;
+   interrupts = <10 1>;
+   prescaler = <0>;
+  };
+
+  rtc0: rtc@4000b000 {
+   compatible = "nordic,nrf-rtc";
+   reg = <0x4000b000 0x1000>;
+   cc-num = <3>;
+   interrupts = <11 1>;
+   status = "disabled";
+   clock-frequency = <32768>;
+   prescaler = <1>;
+  };
+
+  temp: temp@4000c000 {
+   compatible = "nordic,nrf-temp";
+   reg = <0x4000c000 0x1000>;
+   interrupts = <12 1>;
+   status = "okay";
+  };
+
+  rng: random@4000d000 {
+   compatible = "nordic,nrf-rng";
+   reg = <0x4000d000 0x1000>;
+   interrupts = <13 1>;
+   status = "okay";
+  };
+
+  ecb: ecb@4000e000 {
+   compatible = "nordic,nrf-ecb";
+   reg = <0x4000e000 0x1000>;
+   interrupts = <14 1>;
+   status = "okay";
+  };
+
+  ccm: ccm@4000f000 {
+   compatible = "nordic,nrf-ccm";
+   reg = <0x4000f000 0x1000>;
+   interrupts = <15 1>;
+   length-field-length-8-bits;
+   status = "okay";
+  };
+
+  wdt: wdt0: watchdog@40010000 {
+   compatible = "nordic,nrf-wdt";
+   reg = <0x40010000 0x1000>;
+   interrupts = <16 1>;
+   status = "okay";
+  };
+
+  rtc1: rtc@40011000 {
+   compatible = "nordic,nrf-rtc";
+   reg = <0x40011000 0x1000>;
+   cc-num = <4>;
+   interrupts = <17 1>;
+   status = "disabled";
+   clock-frequency = <32768>;
+   prescaler = <1>;
+  };
+
+  qdec: qdec0: qdec@40012000 {
+   compatible = "nordic,nrf-qdec";
+   reg = <0x40012000 0x1000>;
+   interrupts = <18 1>;
+   status = "disabled";
+  };
+
+  comp: comparator@40013000 {
+
+
+
+
+
+
+   compatible = "nordic,nrf-comp";
+   reg = <0x40013000 0x1000>;
+   interrupts = <19 1>;
+   status = "disabled";
+   #io-channel-cells = <1>;
+  };
+
+  egu0: swi0: egu@40014000 {
+   compatible = "nordic,nrf-egu", "nordic,nrf-swi";
+   reg = <0x40014000 0x1000>;
+   interrupts = <20 1>;
+   status = "okay";
+  };
+
+  egu1: swi1: egu@40015000 {
+   compatible = "nordic,nrf-egu", "nordic,nrf-swi";
+   reg = <0x40015000 0x1000>;
+   interrupts = <21 1>;
+   status = "okay";
+  };
+
+  egu2: swi2: egu@40016000 {
+   compatible = "nordic,nrf-egu", "nordic,nrf-swi";
+   reg = <0x40016000 0x1000>;
+   interrupts = <22 1>;
+   status = "okay";
+  };
+
+  egu3: swi3: egu@40017000 {
+   compatible = "nordic,nrf-egu", "nordic,nrf-swi";
+   reg = <0x40017000 0x1000>;
+   interrupts = <23 1>;
+   status = "okay";
+  };
+
+  egu4: swi4: egu@40018000 {
+   compatible = "nordic,nrf-egu", "nordic,nrf-swi";
+   reg = <0x40018000 0x1000>;
+   interrupts = <24 1>;
+   status = "okay";
+  };
+
+  egu5: swi5: egu@40019000 {
+   compatible = "nordic,nrf-egu", "nordic,nrf-swi";
+   reg = <0x40019000 0x1000>;
+   interrupts = <25 1>;
+   status = "okay";
+  };
+
+  timer3: timer@4001a000 {
+   compatible = "nordic,nrf-timer";
+   status = "disabled";
+   reg = <0x4001a000 0x1000>;
+   cc-num = <6>;
+   max-bit-width = <32>;
+   interrupts = <26 1>;
+   prescaler = <0>;
+  };
+
+  timer4: timer@4001b000 {
+   compatible = "nordic,nrf-timer";
+   status = "disabled";
+   reg = <0x4001b000 0x1000>;
+   cc-num = <6>;
+   max-bit-width = <32>;
+   interrupts = <27 1>;
+   prescaler = <0>;
+  };
+
+  pwm0: pwm@4001c000 {
+   compatible = "nordic,nrf-pwm";
+   reg = <0x4001c000 0x1000>;
+   interrupts = <28 1>;
+   status = "disabled";
+   #pwm-cells = <3>;
+  };
+
+  pdm0: pdm@4001d000 {
+   compatible = "nordic,nrf-pdm";
+   reg = <0x4001d000 0x1000>;
+   interrupts = <29 1>;
+   status = "disabled";
+  };
+
+  acl: acl@4001e000 {
+   compatible = "nordic,nrf-acl";
+   reg = <0x4001e000 0x1000>;
+   status = "okay";
+  };
+
+  flash_controller: flash-controller@4001e000 {
+   compatible = "nordic,nrf52-flash-controller";
+   reg = <0x4001e000 0x1000>;
+   partial-erase;
+
+   #address-cells = <1>;
+   #size-cells = <1>;
+
+
+   flash0: flash@0 {
+    compatible = "soc-nv-flash";
+    erase-block-size = <4096>;
+    write-block-size = <4>;
+   };
+  };
+
+  ppi: ppi@4001f000 {
+   compatible = "nordic,nrf-ppi";
+   reg = <0x4001f000 0x1000>;
+   status = "okay";
+  };
+
+  mwu: mwu@40020000 {
+   compatible = "nordic,nrf-mwu";
+   reg = <0x40020000 0x1000>;
+   status = "okay";
+  };
+
+  pwm1: pwm@40021000 {
+   compatible = "nordic,nrf-pwm";
+   reg = <0x40021000 0x1000>;
+   interrupts = <33 1>;
+   status = "disabled";
+   #pwm-cells = <3>;
+  };
+
+  pwm2: pwm@40022000 {
+   compatible = "nordic,nrf-pwm";
+   reg = <0x40022000 0x1000>;
+   interrupts = <34 1>;
+   status = "disabled";
+   #pwm-cells = <3>;
+  };
+
+  spi2: spi@40023000 {
+
+
+
+
+
+
+
+   compatible = "nordic,nrf-spim";
+   #address-cells = <1>;
+   #size-cells = <0>;
+   reg = <0x40023000 0x1000>;
+   interrupts = <35 1>;
+   max-frequency = <((8) * 1000 * 1000)>;
+   easydma-maxcnt-bits = <16>;
+   status = "disabled";
+  };
+
+  rtc2: rtc@40024000 {
+   compatible = "nordic,nrf-rtc";
+   reg = <0x40024000 0x1000>;
+   cc-num = <4>;
+   interrupts = <36 1>;
+   status = "disabled";
+   clock-frequency = <32768>;
+   prescaler = <1>;
+  };
+
+  i2s0: i2s@40025000 {
+   compatible = "nordic,nrf-i2s";
+   #address-cells = <1>;
+   #size-cells = <0>;
+   reg = <0x40025000 0x1000>;
+   interrupts = <37 1>;
+   status = "disabled";
+  };
+
+  usbd: usbd@40027000 {
+   compatible = "nordic,nrf-usbd";
+   reg = <0x40027000 0x1000>;
+   interrupts = <39 1>;
+   num-bidir-endpoints = <1>;
+   num-in-endpoints = <7>;
+   num-out-endpoints = <7>;
+   num-isoin-endpoints = <1>;
+   num-isoout-endpoints = <1>;
+   status = "disabled";
+  };
+
+  uart1: uart@40028000 {
+   compatible = "nordic,nrf-uarte";
+   reg = <0x40028000 0x1000>;
+   interrupts = <40 1>;
+   status = "disabled";
+  };
+
+  qspi: qspi@40029000 {
+   compatible = "nordic,nrf-qspi";
+   #address-cells = <1>;
+   #size-cells = <0>;
+   reg = <0x40029000 0x1000>, <0x12000000 0x8000000>;
+   reg-names = "qspi", "qspi_mm";
+   interrupts = <41 1>;
+   status = "disabled";
+  };
+
+  pwm3: pwm@4002d000 {
+   compatible = "nordic,nrf-pwm";
+   reg = <0x4002d000 0x1000>;
+   interrupts = <45 1>;
+   status = "disabled";
+   #pwm-cells = <3>;
+  };
+
+  spi3: spi@4002f000 {
+   compatible = "nordic,nrf-spim";
+   #address-cells = <1>;
+   #size-cells = <0>;
+   reg = <0x4002f000 0x1000>;
+   interrupts = <47 1>;
+   max-frequency = <((32) * 1000 * 1000)>;
+   easydma-maxcnt-bits = <16>;
+   rx-delay-supported;
+   rx-delay = <2>;
+   status = "disabled";
+  };
+
+  gpio0: gpio@50000000 {
+   compatible = "nordic,nrf-gpio";
+   gpio-controller;
+   reg = <0x50000000 0x200
+          0x50000500 0x300>;
+   #gpio-cells = <2>;
+   status = "disabled";
+   port = <0>;
+  };
+
+  gpio1: gpio@50000300 {
+   compatible = "nordic,nrf-gpio";
+   gpio-controller;
+   reg = <0x50000300 0x200
+          0x50000800 0x300>;
+   #gpio-cells = <2>;
+   ngpios = <16>;
+   status = "disabled";
+   port = <1>;
+  };
+
+  cryptocell: crypto@5002a000 {
+   compatible = "nordic,cryptocell", "arm,cryptocell-310";
+   reg = <0x5002a000 0x1000>, <0x5002b000 0x1000>;
+   reg-names = "wrapper", "core";
+   interrupts = <42 1>;
+   status = "disabled";
+  };
+ };
+};
+
+&nvic {
+ arm,num-irq-priority-bits = <3>;
+};
+# 9 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/dts/arm/nordic/nrf52840_qiaa.dtsi" 2 3 4
+
+&flash0 {
+ reg = <0x00000000 ((1024) * 1024)>;
+};
+
+&sram0 {
+ reg = <0x20000000 ((256) * 1024)>;
+};
+
+/ {
+ soc {
+  compatible = "nordic,nrf52840-qiaa", "nordic,nrf52840",
+        "nordic,nrf52", "simple-bus";
+ };
+};
+# 10 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/boards/arm/adv360/adv360.dtsi" 2
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/dt-bindings/led/led.h" 1 3 4
+# 12 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/boards/arm/adv360/adv360.dtsi" 2
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/matrix_transform.h" 1 3 4
+# 13 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/boards/arm/adv360/adv360.dtsi" 2
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/boards/arm/adv360/adv360-layouts.dtsi" 1
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/physical_layouts.dtsi" 1 3 4
+
+
+
+
+
+
+/ {
+    key_physical_attrs: key_physical_attrs {
+        compatible = "zmk,key-physical-attrs";
+
+        #key-cells = <7>;
+    };
+};
+# 2 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/boards/arm/adv360/adv360-layouts.dtsi" 2
+
+/ {
+    physical_layout0: physical_layout_0 {
+        compatible = "zmk,physical-layout";
+        display-name = "Default";
+
+        keys
+            = <&key_physical_attrs 125 100 0 25 0 0 0>
+            , <&key_physical_attrs 100 100 125 25 0 0 0>
+            , <&key_physical_attrs 100 100 225 0 0 0 0>
+            , <&key_physical_attrs 100 100 325 0 0 0 0>
+            , <&key_physical_attrs 100 100 425 0 0 0 0>
+            , <&key_physical_attrs 100 100 525 0 0 0 0>
+            , <&key_physical_attrs 100 100 625 0 0 0 0>
+            , <&key_physical_attrs 100 100 1075 0 0 0 0>
+            , <&key_physical_attrs 100 100 1175 0 0 0 0>
+            , <&key_physical_attrs 100 100 1275 0 0 0 0>
+            , <&key_physical_attrs 100 100 1375 0 0 0 0>
+            , <&key_physical_attrs 100 100 1475 0 0 0 0>
+            , <&key_physical_attrs 100 100 1575 25 0 0 0>
+            , <&key_physical_attrs 125 100 1675 25 0 0 0>
+            , <&key_physical_attrs 125 100 0 125 0 0 0>
+            , <&key_physical_attrs 100 100 125 125 0 0 0>
+            , <&key_physical_attrs 100 100 225 100 0 0 0>
+            , <&key_physical_attrs 100 100 325 100 0 0 0>
+            , <&key_physical_attrs 100 100 425 100 0 0 0>
+            , <&key_physical_attrs 100 100 525 100 0 0 0>
+            , <&key_physical_attrs 100 100 625 100 0 0 0>
+            , <&key_physical_attrs 100 100 1075 100 0 0 0>
+            , <&key_physical_attrs 100 100 1175 100 0 0 0>
+            , <&key_physical_attrs 100 100 1275 100 0 0 0>
+            , <&key_physical_attrs 100 100 1375 100 0 0 0>
+            , <&key_physical_attrs 100 100 1475 100 0 0 0>
+            , <&key_physical_attrs 100 100 1575 125 0 0 0>
+            , <&key_physical_attrs 125 100 1675 125 0 0 0>
+            , <&key_physical_attrs 125 100 0 225 0 0 0>
+            , <&key_physical_attrs 100 100 125 225 0 0 0>
+            , <&key_physical_attrs 100 100 225 200 0 0 0>
+            , <&key_physical_attrs 100 100 325 200 0 0 0>
+            , <&key_physical_attrs 100 100 425 200 0 0 0>
+            , <&key_physical_attrs 100 100 525 200 0 0 0>
+            , <&key_physical_attrs 100 100 625 200 0 0 0>
+            , <&key_physical_attrs 100 100 675 400 1500 525 400>
+            , <&key_physical_attrs 100 100 775 400 1500 525 400>
+            , <&key_physical_attrs 100 100 925 400 (-1500) 1275 400>
+            , <&key_physical_attrs 100 100 1025 400 (-1500) 1275 400>
+            , <&key_physical_attrs 100 100 1075 200 0 0 0>
+            , <&key_physical_attrs 100 100 1175 200 0 0 0>
+            , <&key_physical_attrs 100 100 1275 200 0 0 0>
+            , <&key_physical_attrs 100 100 1375 200 0 0 0>
+            , <&key_physical_attrs 100 100 1475 200 0 0 0>
+            , <&key_physical_attrs 100 100 1575 225 0 0 0>
+            , <&key_physical_attrs 125 100 1675 225 0 0 0>
+            , <&key_physical_attrs 125 100 0 325 0 0 0>
+            , <&key_physical_attrs 100 100 125 325 0 0 0>
+            , <&key_physical_attrs 100 100 225 300 0 0 0>
+            , <&key_physical_attrs 100 100 325 300 0 0 0>
+            , <&key_physical_attrs 100 100 425 300 0 0 0>
+            , <&key_physical_attrs 100 100 525 300 0 0 0>
+            , <&key_physical_attrs 100 100 775 500 1500 525 400>
+            , <&key_physical_attrs 100 100 925 500 (-1500) 1275 400>
+            , <&key_physical_attrs 100 100 1175 300 0 0 0>
+            , <&key_physical_attrs 100 100 1275 300 0 0 0>
+            , <&key_physical_attrs 100 100 1375 300 0 0 0>
+            , <&key_physical_attrs 100 100 1475 300 0 0 0>
+            , <&key_physical_attrs 100 100 1575 325 0 0 0>
+            , <&key_physical_attrs 125 100 1675 325 0 0 0>
+            , <&key_physical_attrs 125 100 0 425 0 0 0>
+            , <&key_physical_attrs 100 100 125 425 0 0 0>
+            , <&key_physical_attrs 100 100 225 400 0 0 0>
+            , <&key_physical_attrs 100 100 325 400 0 0 0>
+            , <&key_physical_attrs 100 100 425 400 0 0 0>
+            , <&key_physical_attrs 100 200 575 500 1500 525 400>
+            , <&key_physical_attrs 100 200 675 500 1500 525 400>
+            , <&key_physical_attrs 100 100 775 600 1500 525 400>
+            , <&key_physical_attrs 100 100 925 600 (-1500) 1275 400>
+            , <&key_physical_attrs 100 200 1025 500 (-1500) 1275 400>
+            , <&key_physical_attrs 100 200 1125 500 (-1500) 1275 400>
+            , <&key_physical_attrs 100 100 1275 400 0 0 0>
+            , <&key_physical_attrs 100 100 1375 400 0 0 0>
+            , <&key_physical_attrs 100 100 1475 400 0 0 0>
+            , <&key_physical_attrs 100 100 1575 425 0 0 0>
+            , <&key_physical_attrs 125 100 1675 425 0 0 0>
+            ;
+    };
+};
+# 15 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/boards/arm/adv360/adv360.dtsi" 2
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/boards/arm/adv360/adv360_pinctrl.dtsi" 1
+
+
+
+
+
+&pinctrl {
+    spi3_default: spi3_default {
+        group1 {
+            psels = <((((((0) * 32U) + (20)) & 0x7FU) << 0U) | ((5U & 0xFFFFU) << 16U))>;
+        };
+    };
+
+    spi3_sleep: spi3_sleep {
+        group1 {
+            psels = <((((((0) * 32U) + (20)) & 0x7FU) << 0U) | ((5U & 0xFFFFU) << 16U))>;
+            low-power-enable;
+        };
+    };
+    pwm0_default: pwm0_default {
+        group1 {
+            psels = <((((((0) * 32U) + (17)) & 0x7FU) << 0U) | ((22U & 0xFFFFU) << 16U))>;
+        };
+    };
+    pwm0_sleep: pwm0_sleep {
+        group1 {
+            psels = <((((((0) * 32U) + (17)) & 0x7FU) << 0U) | ((22U & 0xFFFFU) << 16U))>;
+            low-power-enable;
+        };
+    };
+};
+# 16 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/boards/arm/adv360/adv360.dtsi" 2
+
+&physical_layout0 {
+    transform = <&matrix_transform0>;
+};
+
+/ {
+    model = "Adv360";
+    compatible = "kinesis,adv360";
+
+    chosen {
+        zephyr,code-partition = &code_partition;
+        zephyr,sram = &sram0;
+        zephyr,flash = &flash0;
+        zmk,kscan = &kscan0;
+        zmk,backlight = &backlight;
+        zmk,battery = &vbatt;
+        zmk,physical-layout = &physical_layout0;
+        zmk,underglow = &led_strip;
+        zephyr,console = &cdc_acm_uart0;
+    };
+
+    matrix_transform0: keymap_transform_0 {
+        compatible = "zmk,matrix-transform";
+        columns = <20>;
+        rows = <5>;
+
+
+                    map = <
+            (((4) << 8) + (0)) (((4) << 8) + (1)) (((4) << 8) + (2)) (((4) << 8) + (3)) (((4) << 8) + (4)) (((4) << 8) + (5)) (((4) << 8) + (6)) (((4) << 8) + (13)) (((4) << 8) + (14)) (((4) << 8) + (15)) (((4) << 8) + (16)) (((4) << 8) + (17)) (((4) << 8) + (18)) (((4) << 8) + (19))
+            (((3) << 8) + (0)) (((3) << 8) + (1)) (((3) << 8) + (2)) (((3) << 8) + (3)) (((3) << 8) + (4)) (((3) << 8) + (5)) (((3) << 8) + (6)) (((3) << 8) + (13)) (((3) << 8) + (14)) (((3) << 8) + (15)) (((3) << 8) + (16)) (((3) << 8) + (17)) (((3) << 8) + (18)) (((3) << 8) + (19))
+            (((2) << 8) + (0)) (((2) << 8) + (1)) (((2) << 8) + (2)) (((2) << 8) + (3)) (((2) << 8) + (4)) (((2) << 8) + (5)) (((2) << 8) + (6)) (((2) << 8) + (8)) (((2) << 8) + (9)) (((2) << 8) + (10)) (((2) << 8) + (11)) (((2) << 8) + (13)) (((2) << 8) + (14)) (((2) << 8) + (15)) (((2) << 8) + (16)) (((2) << 8) + (17)) (((2) << 8) + (18)) (((2) << 8) + (19))
+            (((1) << 8) + (0)) (((1) << 8) + (1)) (((1) << 8) + (2)) (((1) << 8) + (3)) (((1) << 8) + (4)) (((1) << 8) + (5)) (((1) << 8) + (9)) (((1) << 8) + (10)) (((1) << 8) + (14)) (((1) << 8) + (15)) (((1) << 8) + (16)) (((1) << 8) + (17)) (((1) << 8) + (18)) (((1) << 8) + (19))
+            (((0) << 8) + (0)) (((0) << 8) + (1)) (((0) << 8) + (2)) (((0) << 8) + (3)) (((0) << 8) + (4)) (((0) << 8) + (7)) (((0) << 8) + (8)) (((0) << 8) + (9)) (((0) << 8) + (10)) (((0) << 8) + (11)) (((0) << 8) + (12)) (((0) << 8) + (15)) (((0) << 8) + (16)) (((0) << 8) + (17)) (((0) << 8) + (18)) (((0) << 8) + (19))
+
+        >;
+    };
+    EXT_POWER {
+            compatible = "zmk,ext-power-generic";
+            control-gpios = <&gpio0 13 (0 << 0)>;
+        };
+
+    vbatt: vbatt {
+        compatible = "zmk,battery-voltage-divider";
+        io-channels = <&adc 2>;
+        output-ohms = <100000>;
+        full-ohms = <(100000 + 100000)>;
+    };
+
+    backlight: pwmleds {
+            compatible = "pwm-leds";
+            pwm_led_0 {
+                pwms = <&pwm0 0 10000 (0 << 0)>;
+            };
+        };
+
+};
+
+&pwm0 {
+    status = "okay";
+    pinctrl-0 = <&pwm0_default>;
+    pinctrl-1 = <&pwm0_sleep>;
+    pinctrl-names = "default", "sleep";
+};
+
+&adc {
+    status = "okay";
+};
+
+&gpiote {
+    status = "okay";
+};
+
+&gpio0 {
+    status = "okay";
+};
+
+&gpio1 {
+    status = "okay";
+};
+
+zephyr_udc0: &usbd {
+    status = "okay";
+    cdc_acm_uart0: cdc_acm_uart0 {
+        compatible = "zephyr,cdc-acm-uart";
+    };
+};
+
+
+&flash0 {
+
+
+
+
+    partitions {
+        compatible = "fixed-partitions";
+        #address-cells = <1>;
+        #size-cells = <1>;
+
+        sd_partition: partition@0 {
+            reg = <0x00000000 0x00026000>;
+        };
+        code_partition: partition@26000 {
+            reg = <0x00026000 0x000c6000>;
+        };
+# 130 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/boards/arm/adv360/adv360.dtsi"
+        storage_partition: partition@ec000 {
+            reg = <0x000ec000 0x00008000>;
+        };
+
+        boot_partition: partition@f4000 {
+            reg = <0x000f4000 0x0000c000>;
+        };
+    };
+};
+
+&spi3 {
+    compatible = "nordic,nrf-spim";
+    status = "okay";
+    pinctrl-0 = <&spi3_default>;
+    pinctrl-1 = <&spi3_sleep>;
+    pinctrl-names = "default", "sleep";
+
+    led_strip: ws2812@0 {
+        compatible = "worldsemi,ws2812-spi";
+
+
+        reg = <0>;
+        spi-max-frequency = <4000000>;
+
+
+        chain-length = <3>;
+        spi-one-frame = <0x70>;
+        spi-zero-frame = <0x40>;
+
+        color-mapping = <2
+                   1
+                   3>;
+    };
+};
+# 9 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/boards/arm/adv360/adv360_left.dts" 2
+
+/{
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-matrix";
+        wakeup-source;
+        diode-direction = "col2row";
+        row-gpios
+            = <&gpio1 11 ((0 << 0) | (1 << 5))>
+            , <&gpio1 15 ((0 << 0) | (1 << 5))>
+            , <&gpio0 3 ((0 << 0) | (1 << 5))>
+            , <&gpio1 14 ((0 << 0) | (1 << 5))>
+            , <&gpio1 12 ((0 << 0) | (1 << 5))>
+            ;
+
+        col-gpios
+            = <&gpio0 25 (0 << 0)>
+            , <&gpio0 11 (0 << 0)>
+            , <&gpio0 2 (0 << 0)>
+            , <&gpio0 28 (0 << 0)>
+            , <&gpio0 29 (0 << 0)>
+            , <&gpio0 30 (0 << 0)>
+            , <&gpio0 31 (0 << 0)>
+            , <&gpio1 9 (0 << 0)>
+            , <&gpio0 12 (0 << 0)>
+            , <&gpio0 7 (0 << 0)>
+            ;
+    };
+};
+# 0 "<command-line>" 2
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/adv360_left.keymap" 1
+
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/adv360.keymap" 1
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/key_press.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/key_press.dtsi" 2 3 4
+
+/ {
+    behaviors {
+
+    /omit-if-no-ref/
+
+        kp: key_press {
+            compatible = "zmk,behavior-key-press";
+            #binding-cells = <1>;
+            display-name = "Key Press";
+        };
+    };
+};
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/key_toggle.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/key_toggle.dtsi" 2 3 4
+
+/ {
+    behaviors {
+
+    /omit-if-no-ref/
+
+        kt: key_toggle {
+            compatible = "zmk,behavior-key-toggle";
+            #binding-cells = <1>;
+            display-name = "Key Toggle";
+        };
+    };
+};
+# 9 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/transparent.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/transparent.dtsi" 2 3 4
+
+/ {
+    behaviors {
+
+        /omit-if-no-ref/
+
+        trans: transparent {
+            compatible = "zmk,behavior-transparent";
+            #binding-cells = <0>;
+            display-name = "Transparent";
+        };
+    };
+};
+# 10 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/none.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/none.dtsi" 2 3 4
+
+/ {
+    behaviors {
+
+        /omit-if-no-ref/
+
+        none: none {
+            compatible = "zmk,behavior-none";
+            #binding-cells = <0>;
+            display-name = "None";
+        };
+    };
+};
+# 11 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/mod_tap.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/mod_tap.dtsi" 2 3 4
+
+/ {
+    behaviors {
+
+        /omit-if-no-ref/
+
+        mt: mod_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&kp>, <&kp>;
+            display-name = "Mod-Tap";
+        };
+    };
+};
+# 12 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/layer_tap.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/layer_tap.dtsi" 2 3 4
+
+/ {
+    behaviors {
+
+        /omit-if-no-ref/
+
+        lt: layer_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&mo>, <&kp>;
+            display-name = "Layer-Tap";
+        };
+    };
+};
+# 13 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/gresc.dtsi" 1 3 4
+
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 9 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/gresc.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/keys.h" 1 3 4
+
+
+
+
+
+       
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/hid_usage.h" 1 3 4
+# 11 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/hid_usage.h" 3 4
+       
+# 9 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/keys.h" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/hid_usage_pages.h" 1 3 4
+# 11 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/hid_usage_pages.h" 3 4
+       
+# 10 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/keys.h" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/modifiers.h" 1 3 4
+
+
+
+
+
+       
+# 11 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/keys.h" 2 3 4
+# 10 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/gresc.dtsi" 2 3 4
+
+/ {
+    behaviors {
+
+        /omit-if-no-ref/
+
+        gresc: grave_escape {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp (((((0x07) << 16) | (0x29))))>, <&kp ((((0x07) << 16) | (0x35)))>;
+            mods = <(0x08|0x02|0x80|0x20)>;
+            display-name = "Grave/Escape";
+        };
+    };
+};
+# 14 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/sticky_key.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/sticky_key.dtsi" 2 3 4
+
+/ {
+    behaviors {
+
+        /omit-if-no-ref/
+
+        sk: sticky_key {
+            compatible = "zmk,behavior-sticky-key";
+            #binding-cells = <1>;
+            release-after-ms = <1000>;
+            bindings = <&kp>;
+            ignore-modifiers;
+            display-name = "Sticky Key";
+        };
+
+        /omit-if-no-ref/
+
+        sl: sticky_layer {
+            compatible = "zmk,behavior-sticky-key";
+            #binding-cells = <1>;
+            release-after-ms = <1000>;
+            bindings = <&mo>;
+            quick-release;
+            display-name = "Sticky Layer";
+        };
+    };
+
+};
+# 15 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/momentary_layer.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/momentary_layer.dtsi" 2 3 4
+
+/ {
+    behaviors {
+
+        /omit-if-no-ref/
+
+        mo: momentary_layer {
+            compatible = "zmk,behavior-momentary-layer";
+            #binding-cells = <1>;
+            display-name = "Momentary Layer";
+        };
+    };
+};
+# 16 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/toggle_layer.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/toggle_layer.dtsi" 2 3 4
+
+/ {
+    behaviors {
+
+        /omit-if-no-ref/
+
+        tog: toggle_layer {
+            compatible = "zmk,behavior-toggle-layer";
+            #binding-cells = <1>;
+            display-name = "Toggle Layer";
+        };
+    };
+};
+# 17 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/to_layer.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/to_layer.dtsi" 2 3 4
+
+/ {
+    behaviors {
+
+        /omit-if-no-ref/
+
+        to: to_layer {
+            compatible = "zmk,behavior-to-layer";
+            #binding-cells = <1>;
+            display-name = "To Layer";
+        };
+    };
+};
+# 18 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/reset.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/reset.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/reset.dtsi" 2 3 4
+
+/ {
+    behaviors {
+
+        sys_reset: sysreset {
+            compatible = "zmk,behavior-reset";
+            #binding-cells = <0>;
+            display-name = "Reset";
+        };
+
+
+        bootloader: bootload {
+            compatible = "zmk,behavior-reset";
+            type = <0x57>;
+            #binding-cells = <0>;
+            display-name = "Bootloader";
+        };
+    };
+};
+# 19 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/sensor_rotate_key_press.dtsi" 1 3 4
+
+
+
+
+
+
+/ {
+    behaviors {
+
+        /omit-if-no-ref/ inc_dec_cp: inc_dec_kp: enc_key_press {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <2>;
+            bindings = <&kp>, <&kp>;
+        };
+    };
+};
+# 20 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/rgb_underglow.dtsi" 1 3 4
+
+
+
+
+
+
+/ {
+    behaviors {
+
+        rgb_ug: rgb_ug {
+            compatible = "zmk,behavior-rgb-underglow";
+            #binding-cells = <2>;
+            display-name = "Underglow";
+        };
+    };
+};
+# 21 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/bluetooth.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/bluetooth.dtsi" 2 3 4
+
+/ {
+    behaviors {
+
+        /omit-if-no-ref/
+
+        bt: bluetooth {
+            compatible = "zmk,behavior-bluetooth";
+            #binding-cells = <2>;
+            display-name = "Bluetooth";
+        };
+    };
+};
+# 22 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/ext_power.dtsi" 1 3 4
+
+
+
+
+
+
+/ {
+    behaviors {
+
+        ext_power: extpower {
+            compatible = "zmk,behavior-ext-power";
+            #binding-cells = <1>;
+            display-name = "External Power";
+        };
+    };
+};
+# 23 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/outputs.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/outputs.dtsi" 2 3 4
+
+/ {
+    behaviors {
+
+        /omit-if-no-ref/
+
+        out: outputs {
+            compatible = "zmk,behavior-outputs";
+            #binding-cells = <1>;
+            display-name = "Output Selection";
+        };
+    };
+};
+# 24 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/caps_word.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/caps_word.dtsi" 2 3 4
+
+
+/ {
+    behaviors {
+
+        /omit-if-no-ref/
+
+        caps_word: caps_word {
+            compatible = "zmk,behavior-caps-word";
+            #binding-cells = <0>;
+            continue-list = <((0x02 << 24 | (((0x07) << 16) | (0x2D)))) ((((0x07) << 16) | (0x2A))) ((((0x07) << 16) | (0x4C)))>;
+            display-name = "Caps Word";
+        };
+    };
+};
+# 25 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/key_repeat.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/key_repeat.dtsi" 2 3 4
+
+
+/ {
+    behaviors {
+
+    /omit-if-no-ref/
+
+        key_repeat: key_repeat {
+            compatible = "zmk,behavior-key-repeat";
+            #binding-cells = <0>;
+            usage-pages = <(0x07)>;
+            display-name = "Key Repeat";
+        };
+    };
+};
+# 26 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/backlight.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/backlight.dtsi" 2 3 4
+
+ / {
+    behaviors {
+
+        /omit-if-no-ref/
+
+
+        bl: bcklight {
+            compatible = "zmk,behavior-backlight";
+            #binding-cells = <2>;
+            display-name = "Backlight";
+        };
+    };
+};
+# 27 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/macros.dtsi" 1 3 4
+# 29 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/macros.dtsi" 3 4
+/ {
+    behaviors {
+        macro_tap: macro_tap {
+            compatible = "zmk,macro-control-mode-tap";
+            #binding-cells = <0>;
+        };
+
+        macro_press: macro_press {
+            compatible = "zmk,macro-control-mode-press";
+            #binding-cells = <0>;
+        };
+
+        macro_release: macro_release {
+            compatible = "zmk,macro-control-mode-release";
+            #binding-cells = <0>;
+        };
+
+        macro_tap_time: macro_tap_time {
+            compatible = "zmk,macro-control-tap-time";
+            #binding-cells = <1>;
+        };
+
+        macro_wait_time: macro_wait_time {
+            compatible = "zmk,macro-control-wait-time";
+            #binding-cells = <1>;
+        };
+
+        macro_pause_for_release: macro_pause_for_release {
+            compatible = "zmk,macro-pause-for-release";
+            #binding-cells = <0>;
+        };
+
+        macro_param_1to1: macro_param_1to1 {
+            compatible = "zmk,macro-param-1to1";
+            #binding-cells = <0>;
+        };
+
+        macro_param_1to2: macro_param_1to2 {
+            compatible = "zmk,macro-param-1to2";
+            #binding-cells = <0>;
+        };
+
+        macro_param_2to1: macro_param_2to1 {
+            compatible = "zmk,macro-param-2to1";
+            #binding-cells = <0>;
+        };
+
+        macro_param_2to2: macro_param_2to2 {
+            compatible = "zmk,macro-param-2to2";
+            #binding-cells = <0>;
+        };
+    };
+};
+# 28 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/soft_off.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/soft_off.dtsi" 2 3 4
+
+/ {
+    behaviors {
+
+        /omit-if-no-ref/
+
+        soft_off: z_so_off {
+            compatible = "zmk,behavior-soft-off";
+            #binding-cells = <0>;
+            split-peripheral-off-on-press;
+        };
+    };
+};
+# 29 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/studio_unlock.dtsi" 1 3 4
+
+
+
+
+
+
+/ {
+    behaviors {
+        studio_unlock: studio_unlock {
+            compatible = "zmk,behavior-studio-unlock";
+            #binding-cells = <0>;
+            display-name = "Studio Unlock";
+        };
+    };
+};
+# 30 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/mouse_keys.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/mouse_key_press.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/behaviors.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/mouse_key_press.dtsi" 2 3 4
+
+/ {
+    behaviors {
+
+        /omit-if-no-ref/
+
+        mkp: mouse_key_press {
+            compatible = "zmk,behavior-mouse-key-press";
+            #binding-cells = <1>;
+        };
+    };
+
+    mkp_input_listener: mkp_input_listener {
+        compatible = "zmk,input-listener";
+        device = <&mkp>;
+    };
+};
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/mouse_keys.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/mouse_move.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/include/zephyr/dt-bindings/input/input-event-codes.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/mouse_move.dtsi" 2 3 4
+
+/ {
+    behaviors {
+        /omit-if-no-ref/ mmv: mouse_move {
+            compatible = "zmk,behavior-input-two-axis";
+            #binding-cells = <1>;
+            x-input-code = <0x00>;
+            y-input-code = <0x01>;
+            time-to-max-speed-ms = <300>;
+            acceleration-exponent = <1>;
+        };
+    };
+
+    mmv_input_listener: mmv_input_listener {
+        compatible = "zmk,input-listener";
+        device = <&mmv>;
+    };
+};
+# 9 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/mouse_keys.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/mouse_scroll.dtsi" 1 3 4
+# 10 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/mouse_scroll.dtsi" 3 4
+/ {
+    behaviors {
+        /omit-if-no-ref/ msc: mouse_scroll {
+            compatible = "zmk,behavior-input-two-axis";
+            #binding-cells = <1>;
+            x-input-code = <0x06>;
+            y-input-code = <0x08>;
+            time-to-max-speed-ms = <300>;
+            acceleration-exponent = <0>;
+        };
+    };
+
+    msc_input_listener: msc_input_listener {
+        compatible = "zmk,input-listener";
+        device = <&msc>;
+    };
+};
+# 10 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/mouse_keys.dtsi" 2 3 4
+# 31 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors/stp_indicators.dtsi" 1 3 4
+/ {
+    behaviors {
+        stp: behavior_stp_indicators {
+            compatible = "zmk,behavior-stp-indicators";
+            display-name = "Battery Level";
+            #binding-cells = <1>;
+        };
+    };
+};
+# 32 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/dts/behaviors.dtsi" 2 3 4
+# 2 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/adv360.keymap" 2
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/bt.h" 1 3 4
+# 4 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/adv360.keymap" 2
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/rgb.h" 1 3 4
+# 5 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/adv360.keymap" 2
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/backlight.h" 1 3 4
+# 6 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/adv360.keymap" 2
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/mouse.h" 1 3 4
+
+
+
+
+
+
+       
+
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/pointing.h" 1 3 4
+
+
+
+
+
+       
+# 10 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/mouse.h" 2 3 4
+# 7 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/adv360.keymap" 2
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zmk/app/include/dt-bindings/zmk/outputs.h" 1 3 4
+# 8 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/adv360.keymap" 2
+
+/ {
+    behaviors {
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/macros.dtsi" 1
+  macro_quotes: macro_quotes {
+    compatible = "zmk,behavior-macro";
+    label = "macro_quotes";
+    #binding-cells = <0>;
+    bindings = <&kp (((((0x07) << 16) | (0x34))))>, <&kp (((((0x07) << 16) | (0x34))))>, <&kp (((((0x07) << 16) | (0x50))))>;
+  };
+  macro_dquotes: macro_dquotes {
+    compatible = "zmk,behavior-macro";
+    label = "macro_dquotes";
+    #binding-cells = <0>;
+    bindings = <&kp (((0x02 << 24 | (((0x07) << 16) | (0x34)))))>, <&kp (((0x02 << 24 | (((0x07) << 16) | (0x34)))))>, <&kp (((((0x07) << 16) | (0x50))))>;
+  };
+  macro_braces: macro_braces {
+    compatible = "zmk,behavior-macro";
+    label = "macro_braces";
+    #binding-cells = <0>;
+    bindings = <&kp (((0x02 << 24 | (((0x07) << 16) | (0x2F)))))>, <&kp (((0x02 << 24 | (((0x07) << 16) | (0x30)))))>, <&kp (((((0x07) << 16) | (0x50))))>;
+  };
+  macro_parens: macro_parens {
+    compatible = "zmk,behavior-macro";
+    label = "macro_parens";
+    #binding-cells = <0>;
+    bindings = <&kp (((0x02 << 24 | (((0x07) << 16) | (0x26)))))>, <&kp (((0x02 << 24 | (((0x07) << 16) | (0x27)))))>, <&kp (((((0x07) << 16) | (0x50))))>;
+  };
+  macro_brackets: macro_brackets {
+    compatible = "zmk,behavior-macro";
+    label = "macro_brackets";
+    #binding-cells = <0>;
+    bindings = <&kp (((((0x07) << 16) | (0x2F))))>, <&kp (((((0x07) << 16) | (0x30))))>, <&kp (((((0x07) << 16) | (0x50))))>;
+  };
+  macro_kinesis: macro_kinesis {
+    compatible = "zmk,behavior-macro";
+    label = "macro_kinesis";
+    #binding-cells = <0>;
+    bindings = <&kp (0x02 << 24 | ((((0x07) << 16) | (0x0E))))>, <&kp ((((0x07) << 16) | (0x0C)))>, <&kp ((((0x07) << 16) | (0x11)))>, <&kp ((((0x07) << 16) | (0x08)))>, <&kp ((((0x07) << 16) | (0x16)))>, <&kp ((((0x07) << 16) | (0x0C)))>, <&kp ((((0x07) << 16) | (0x16)))>;
+  };
+  Win_Cut: Windows_Cut {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x01 << 24 | ((((0x07) << 16) | (0x1B))))>;
+    display-name = "Windows Cut";
+  };
+
+  Win_Copy: Windows_Copy {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x01 << 24 | ((((0x07) << 16) | (0x06))))>;
+    display-name = "Windows Copy";
+  };
+
+  Win_Paste: Windows_Paste {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x01 << 24 | ((((0x07) << 16) | (0x19))))>;
+    display-name = "Windows Paste";
+  };
+
+  Win_Select_All: Windows_SelectAll {
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&kp (0x01 << 24 | ((((0x07) << 16) | (0x04))))>;
+      display-name = "Windows Select All";
+  };
+
+  Win_Undo: Windows_Undo {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x01 << 24 | ((((0x07) << 16) | (0x1D))))>;
+    display-name = "Windows Undo";
+  };
+
+  Win_Desktop: Win_Desk {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x08 << 24 | ((((0x07) << 16) | (0x07))))>;
+    display-name = "Windows Desktop";
+  };
+
+  Win_File_Explorer: Win_Explr {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x08 << 24 | ((((0x07) << 16) | (0x08))))>;
+    display-name = "Windows Explorer";
+  };
+
+  Win_Snip_Tool: Win_Snip {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x02 << 24 | (0x08 << 24 | ((((0x07) << 16) | (0x16)))))>;
+    display-name = "Windows Screen Snip";
+  };
+
+  Win_Show_All_Windows: Win_ShowAW {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x08 << 24 | ((((0x07) << 16) | (0x2B))))>;
+    display-name = "Windows Show All Windows";
+  };
+
+  Mac_Cut: Mac_Cut {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x08 << 24 | ((((0x07) << 16) | (0x1B))))>;
+    display-name = "Mac Cut";
+  };
+
+  Mac_Copy: Mac_Copy {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x08 << 24 | ((((0x07) << 16) | (0x06))))>;
+    display-name = "Mac Copy";
+  };
+
+  Mac_Paste: Mac_Paste {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x08 << 24 | ((((0x07) << 16) | (0x19))))>;
+    display-name = "Mac Paste";
+  };
+
+  Mac_Undo: Mac_Undo {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x08 << 24 | ((((0x07) << 16) | (0x1D))))>;
+    display-name = "Mac Undo";
+  };
+
+  Mac_Select_All: Mac_SelAll {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x08 << 24 | ((((0x07) << 16) | (0x04))))>;
+    display-name = "Mac Select All";
+  };
+
+  Mac_Mission_Control: Mac_ShowAW {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x01 << 24 | ((((0x07) << 16) | (0x52))))>;
+    display-name = "Mac Show All Windows";
+  };
+
+  Mac_Snip_Tool: Mac_Snip {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x01 << 24 | (0x08 << 24 | (0x02 << 24 | ((((0x07) << 16) | (0x21))))))>;
+    display-name = "Mac Screen Snip";
+  };
+
+  Win_Close_Program: Win_Close_Program {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x04 << 24 | ((((0x07) << 16) | (0x3D))))>;
+    display-name = "Windows Close";
+  };
+
+  Win_Settings_Menu: Win_Settings_Menu {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x08 << 24 | ((((0x07) << 16) | (0x0C))))>;
+    display-name = "Windows Settings";
+  };
+
+  Win_Lock_PC: Win_Lock_PC {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x08 << 24 | ((((0x07) << 16) | (0x0F))))>;
+    display-name = "Windows Lock";
+  };
+
+  Win_Tile_Left: Win_Tile_Left {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x08 << 24 | (((((0x07) << 16) | (0x50)))))>;
+    display-name = "Windows Tile Left";
+  };
+
+  Win_Tile_Up: Win_Tile_Up {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x08 << 24 | ((((0x07) << 16) | (0x52))))>;
+    display-name = "Windows Tile Up";
+  };
+
+  Win_Tile_Down: Win_Tile_Down {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x08 << 24 | (((((0x07) << 16) | (0x51)))))>;
+    display-name = "Windows Tile Down";
+  };
+
+  Win_Tile_Right: Win_Tile_Right {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x08 << 24 | (((((0x07) << 16) | (0x4F)))))>;
+    display-name = "Windows Tile Right";
+  };
+
+  Mac_Spotlight_Search: Mac_Spotlight_Search {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x08 << 24 | ((((0x07) << 16) | (0x2C))))>;
+    display-name = "Mac Spotlight Search";
+  };
+
+  Mac_Close_Program: Mac_Close_Program {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x08 << 24 | ((((0x07) << 16) | (0x14))))>;
+    display-name = "Mac Close Program";
+  };
+
+  Mac_Strike_Through_Text: Mac_Strike_Through_Text {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp (0x08 << 24 | (0x02 << 24 | ((((0x07) << 16) | (0x1B)))))>;
+    display-name = "Mac Strikethrough Text";
+  };
+
+  Double_Click: Double_Click {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&mkp (1UL << (0)) &mkp (1UL << (0))>;
+    display-name = "Double Click";
+  };
+# 12 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/adv360.keymap" 2
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/version.dtsi" 1
+# 13 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/adv360.keymap" 2
+
+      hm: homerow_mods {
+          compatible = "zmk,behavior-hold-tap";
+          label = "HOMEROW_MODS";
+          #binding-cells = <2>;
+          tapping-term-ms = <200>;
+          quick_tap_ms = <175>;
+          flavor = "tap-preferred";
+          bindings = <&kp>, <&kp>;
+      };
+    };
+
+  keymap {
+    compatible = "zmk,keymap";
+
+    default_layer {
+      display-name = "Base";
+      bindings = <
+        &kp (((((0x07) << 16) | (0x4B)))) &kp (((((0x07) << 16) | (0x1E)))) &kp (((((0x07) << 16) | (0x1F)))) &kp (((((0x07) << 16) | (0x20)))) &kp (((((0x07) << 16) | (0x21)))) &kp (((((0x07) << 16) | (0x22)))) &tog 1 &mo 3 &kp (((((0x07) << 16) | (0x23)))) &kp (((((0x07) << 16) | (0x24)))) &kp (((((0x07) << 16) | (0x25)))) &kp (((((0x07) << 16) | (0x26)))) &kp (((((0x07) << 16) | (0x27)))) &kp ((((0x07) << 16) | (0x2D)))
+        &kp (((((0x07) << 16) | (0x4E)))) &kp ((((0x07) << 16) | (0x34))) &kp ((((0x07) << 16) | (0x36))) &kp ((((0x07) << 16) | (0x37))) &kp ((((0x07) << 16) | (0x13))) &kp ((((0x07) << 16) | (0x1C))) &none &tog 4 &kp ((((0x07) << 16) | (0x09))) &kp ((((0x07) << 16) | (0x0A))) &kp ((((0x07) << 16) | (0x06))) &kp ((((0x07) << 16) | (0x15))) &kp ((((0x07) << 16) | (0x0F))) &kp ((((0x07) << 16) | (0x38)))
+        &kp (((((0x07) << 16) | (0x29)))) &kp ((((0x07) << 16) | (0x04))) &kp ((((0x07) << 16) | (0x12))) &kp ((((0x07) << 16) | (0x08))) &kp ((((0x07) << 16) | (0x18))) &kp ((((0x07) << 16) | (0x0C))) &kp ((((0x07) << 16) | (0x6D))) &kp (((((0x07) << 16) | (0xE0)))) &kp ((((0x07) << 16) | (0xE2))) &kp ((((0x07) << 16) | (0xE6))) &kp (((((0x07) << 16) | (0xE4)))) &kp ((((0x07) << 16) | (0x6E))) &kp ((((0x07) << 16) | (0x07))) &kp ((((0x07) << 16) | (0x0B))) &kp ((((0x07) << 16) | (0x17))) &kp ((((0x07) << 16) | (0x11))) &kp ((((0x07) << 16) | (0x16))) &kp ((((0x07) << 16) | (0x31)))
+        &kp ((((0x07) << 16) | (0xE1))) &kp ((((0x07) << 16) | (0x33))) &kp ((((0x07) << 16) | (0x14))) &kp ((((0x07) << 16) | (0x0D))) &kp ((((0x07) << 16) | (0x0E))) &kp ((((0x07) << 16) | (0x1B))) &kp ((((0x07) << 16) | (0xE1))) &kp ((((0x07) << 16) | (0xE5))) &kp ((((0x07) << 16) | (0x05))) &kp ((((0x07) << 16) | (0x10))) &kp ((((0x07) << 16) | (0x1A))) &kp ((((0x07) << 16) | (0x19))) &kp ((((0x07) << 16) | (0x1D))) &kp ((((0x07) << 16) | (0xE5)))
+        &mo 2 &kp ((((0x07) << 16) | (0x35))) &kp ((((0x07) << 16) | (0x2E))) &kp (((((0x07) << 16) | (0x50)))) &kp (((((0x07) << 16) | (0x4F)))) &kp (((((0x07) << 16) | (0x2A)))) &kp ((((0x07) << 16) | (0x2B))) &kp ((((0x07) << 16) | (0xE3))) &kp ((((0x07) << 16) | (0xE7))) &kp (((((0x07) << 16) | (0x28)))) &kp ((((0x07) << 16) | (0x2C))) &kp (((((0x07) << 16) | (0x52)))) &kp (((((0x07) << 16) | (0x51)))) &kp (((((0x07) << 16) | (0x2F)))) &kp (((((0x07) << 16) | (0x30)))) &mo 2
+      >;
+    };
+    keypad {
+      display-name = "Kp";
+      bindings = <
+        &trans &trans &trans &trans &trans &trans &trans &trans &trans &kp (((((0x07) << 16) | (0x53)))) &kp ((((0x07) << 16) | (0x67))) &kp ((((0x07) << 16) | (0x54))) &kp ((((0x07) << 16) | (0x55))) &trans
+        &trans &trans &trans &trans &trans &trans &trans &trans &trans &kp (((((0x07) << 16) | (0x5F)))) &kp (((((0x07) << 16) | (0x60)))) &kp (((((0x07) << 16) | (0x61)))) &kp ((((0x07) << 16) | (0x56))) &trans
+        &trans &trans &trans &trans &trans &trans &trans &kp (((((0x07) << 16) | (0xE0)))) &kp (((((0x07) << 16) | (0xE2)))) &kp (((((0x07) << 16) | (0xE3)))) &kp (((((0x07) << 16) | (0xE4)))) &trans &trans &kp (((((0x07) << 16) | (0x5C)))) &kp (((((0x07) << 16) | (0x5D)))) &kp (((((0x07) << 16) | (0x5E)))) &kp ((((0x07) << 16) | (0x57))) &trans
+        &trans &trans &trans &trans &trans &trans &kp ((((0x07) << 16) | (0x4A))) &kp (((((0x07) << 16) | (0x4B)))) &trans &kp (((((0x07) << 16) | (0x59)))) &kp (((((0x07) << 16) | (0x5A)))) &kp (((((0x07) << 16) | (0x5B)))) &kp ((((0x07) << 16) | (0x58))) &trans
+        &trans &trans &trans &trans &trans &trans &kp (((((0x07) << 16) | (0x4C)))) &kp ((((0x07) << 16) | (0x4D))) &kp (((((0x07) << 16) | (0x4E)))) &trans &kp (((((0x07) << 16) | (0x62)))) &trans &trans &kp ((((0x07) << 16) | (0x63))) &trans &trans
+      >;
+    };
+    fn {
+      display-name = "Fn";
+      bindings = <
+        &kp ((((0x07) << 16) | (0x3A))) &kp ((((0x07) << 16) | (0x3B))) &kp ((((0x07) << 16) | (0x3C))) &kp ((((0x07) << 16) | (0x3D))) &kp ((((0x07) << 16) | (0x3E))) &kp ((((0x07) << 16) | (0x3F))) &tog 1 &mo 3 &kp ((((0x07) << 16) | (0x40))) &kp ((((0x07) << 16) | (0x41))) &kp ((((0x07) << 16) | (0x42))) &kp ((((0x07) << 16) | (0x43))) &kp ((((0x07) << 16) | (0x44))) &kp ((((0x07) << 16) | (0x45)))
+        &trans &trans &trans &trans &trans &trans &none &none &trans &trans &trans &trans &trans &trans
+        &trans &trans &trans &trans &trans &trans &none &trans &trans &trans &trans &none &trans &trans &trans &trans &trans &trans
+        &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
+        &trans &trans &trans &kp ((((0x07) << 16) | (0x4A))) &kp ((((0x07) << 16) | (0x4D))) &trans &kp ((((0x07) << 16) | (0x4C))) &trans &trans &trans &trans &kp ((((0x07) << 16) | (0x4B))) &kp ((((0x07) << 16) | (0x4E))) &trans &trans &trans
+      >;
+    };
+    mod {
+      display-name = "Mod";
+      bindings = <
+        &none &bt 3 0 &bt 3 1 &bt 3 2 &bt 3 3 &bt 3 4 &trans &trans &bt 3 0 &bt 3 1 &bt 3 2 &bt 3 3 &bt 3 4 &trans
+        &none &none &none &none &none &none &bootloader &bootloader &none &none &none &none &none &none
+        &studio_unlock &out 0 &out 1 &out 2 &none &none &none &none &none &none &none &none &none &none &none &none &none &none
+        &none &none &none &none &none &none &none &none &none &none &none &none &none &none
+        &none &none &bl 0 0 &bl 3 0 &bl 4 0 &rgb_ug 0 0 &bl 2 0 &none &none &bl 2 0 &rgb_ug 0 0 &bl 3 0 &bl 4 0 &none &none &none
+      >;
+    };
+    extra1 {
+      display-name = "Red";
+      status = "reserved";
+    };
+
+    extra2 {
+      display-name = "Purple";
+      status = "reserved";
+    };
+
+    extra3 {
+      display-name = "Cyan";
+      status = "reserved";
+    };
+
+    extra4 {
+      display-name = "Yellow";
+      status = "reserved";
+    };
+  };
+};
+# 9 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/config/adv360_left.keymap" 2
+# 0 "<command-line>" 2
+# 1 "/var/home/hh/w/touchpad/src/Adv360-Pro-ZMK/zephyr/misc/empty_file.c"

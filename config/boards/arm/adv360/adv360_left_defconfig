@@ -83,9 +83,22 @@ CONFIG_ZMK_HOGP_LOG_LEVEL_DBG=y
 CONFIG_ZMK_SERIAL_CMD=y
 CONFIG_ZMK_USB_LOGGING=y
 
+# USB HID endpoint size - must be >= largest report (trackpad = 24 bytes)
+CONFIG_HID_INTERRUPT_EP_MPS=32
+
+# Dual USB HID interfaces: HID_0 for keyboard/mouse, HID_1 for trackpad
+# This allows hid-multitouch to bind to trackpad while hid-generic handles keyboard/mouse
+CONFIG_USB_HID_DEVICE_COUNT=2
+CONFIG_ZMK_USB_HID_TRACKPAD_INTERFACE=y
+
 # BLE Central role for HOGP
 CONFIG_BT_CENTRAL=y
 CONFIG_BT_GATT_CLIENT=y
+
+# Increase BLE MTU to handle larger HID reports (iTrack trackpad = 23 bytes)
+# Default MTU is 23 (20 data), need at least 26 (23 data + 3 header)
+CONFIG_BT_L2CAP_TX_MTU=65
+CONFIG_BT_BUF_ACL_RX_SIZE=69
 
 # Allow "Just Works" pairing for HOGP trackpad (ProtoArc uses unauthenticated pairing)
 CONFIG_BT_SMP_ENFORCE_MITM=n
