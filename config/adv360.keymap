@@ -29,8 +29,8 @@
       display-name = "Base";
       bindings = <
         &kp EQUAL &kp N1    &kp N2   &kp N3   &kp N4     &kp N5 &tog 1                                                           &mo 3 &kp N6 &kp N7 &kp N8    &kp N9   &kp N0   &kp MINUS
-        &kp TAB   &kp Q     &kp W    &kp E    &kp R      &kp T  &none                                                            &none &kp Y  &kp U  &kp I     &kp O    &kp P    &kp BSLH
-        &kp ESC   &kp A     &kp S    &kp D    &kp F      &kp G  &none           &kp LCTRL &kp LALT &kp LGUI  &kp RCTRL           &none &kp H  &kp J  &kp K     &kp L    &kp SEMI &kp SQT
+        &kp TAB   &kp Q     &kp W    &kp E    &kp R      &kp T  &mo 4                                                            &mo 4 &kp Y  &kp U  &kp I     &kp O    &kp P    &kp BSLH
+        &kp ESC   &kp A     &kp S    &kp D    &kp F      &kp G  &kp F24         &kp LCTRL &kp LALT &kp LGUI  &kp RCTRL           &kp F24 &kp H  &kp J  &kp K     &kp L    &kp SEMI &kp SQT
         &kp LSHFT &kp Z     &kp X    &kp C    &kp V      &kp B                            &kp HOME &kp PG_UP                           &kp N  &kp M  &kp COMMA &kp DOT  &kp FSLH &kp RSHFT
         &mo 2     &kp GRAVE &kp CAPS &kp LEFT &kp RIGHT                &kp BSPC &kp DEL   &kp END  &kp PG_DN &kp ENTER &kp SPACE              &kp UP &kp DOWN  &kp LBKT &kp RBKT &mo 2
       >;
@@ -65,9 +65,15 @@
         &none &none        &none        &none        &none                                       &none &none &none &none      &bl BL_TOG &rgb_ug RGB_TOG                                     &bl BL_INC   &bl BL_DEC   &none &none &none
       >;
     };
-    extra1 { 
-      display-name = "Red";    
-      status = "reserved";
+    extra1 {
+      display-name = "Orange";
+      bindings = <
+        &kp F13    &kp F14    &kp F15    &kp F16    &kp F17       &kp F18    &trans                                                                       &trans       &kp F19    &kp F20    &kp F21       &kp F22       &kp F23    &none
+        &kp LC(F13) &kp LC(F14) &kp LC(F15) &kp LC(F16) &kp LC(F17) &kp LC(F18) &trans                                                                   &trans       &kp LC(F19) &kp LC(F20) &kp LC(F21) &kp LC(F22) &kp LC(F23) &none
+        &kp LS(F13) &kp LS(F14) &kp LS(F15) &kp LS(F16) &kp LS(F17) &kp LS(F18) &trans   &trans &trans &trans &trans                                     &trans       &kp LS(F19) &kp LS(F20) &kp LS(F21) &kp LS(F22) &kp LS(F23) &none
+        &kp LA(F13) &kp LA(F14) &kp LA(F15) &kp LA(F16) &kp LA(F17) &kp LA(F18)                 &trans &trans                                                          &kp LA(F19) &kp LA(F20) &kp LA(F21) &kp LA(F22) &kp LA(F23) &none
+        &kp LC(LS(F13)) &kp LC(LS(F14)) &kp LC(LS(F15)) &kp LC(LS(F16)) &kp LC(LS(F17))   &trans &trans &trans &trans &trans &trans   &kp LC(LS(F19)) &kp LC(LS(F20)) &kp LC(LS(F21)) &kp LC(LS(F22)) &kp LC(LS(F23))
+      >;
     };
 
     extra2 { 
