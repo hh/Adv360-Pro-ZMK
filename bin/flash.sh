@@ -42,10 +42,20 @@ for side in $SIDES; do
   [[ -n "$uf2" ]] || { echo "no $side .uf2 in firmware/ — run make first" >&2; exit 1; }
   echo
   echo ">>> $side half: $(basename "$uf2")"
-  if sudo -n python3 bin/kb-serial-cmd.py '!boot' "$side" >/dev/null 2>&1; then
-    echo "    Serial console found — sent !boot to the $side half."
+  sent=""
+  for attempt in 1 2 3 4; do  # left console needs ~10s to return after its own flash
+    if sudo -n python3 bin/kb-serial-cmd.py '!boot' "$side" >/dev/null 2>&1; then
+      sent="sent !boot to the $side half's console"
+    elif [[ "$side" == right ]] && sudo -n python3 bin/kb-serial-cmd.py '!bootright' left >/dev/null 2>&1; then
+      sent="sent !bootright via the left half's console (split link)"
+    fi
+    [[ -n "$sent" ]] && break
+    sleep 4
+  done
+  if [[ -n "$sent" ]]; then
+    echo "    Serial path — $sent."
   else
-    echo "    No $side-half console — enter bootloader manually:"
+    echo "    No serial path — enter bootloader manually:"
     echo "    hold Mod + tap the $side half's Tab-row inner-column key."
   fi
   echo "    Waiting up to 180s for the ADV360PRO drive..."
