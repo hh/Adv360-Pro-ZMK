@@ -6,8 +6,9 @@ PWD=$(pwd)
 TIMESTAMP="${TIMESTAMP:-$(date -u +"%Y%m%d%H%M")}"
 COMMIT="${COMMIT:-$(echo xxxxxx)}"
 
-# West Build (left)
-west build -s zmk/app -p -d build/left -b adv360_left -S studio-rpc-usb-uart -- -DZMK_CONFIG="${PWD}/config" -DCONFIG_ZMK_STUDIO=y
+# West Build (left) — December shape: no Studio snippet (single CDC-ACM console),
+# debug.conf carries HOGP mouse output + M720 bond fix + verbose logging
+west build -s zmk/app -p -d build/left -b adv360_left -- -DZMK_CONFIG="${PWD}/config" -DEXTRA_CONF_FILE="${PWD}/config/boards/arm/adv360/adv360_left_debug.conf"
 # Adv360 Left Kconfig file
 grep -vE '(^#|^$)' build/left/zephyr/.config
 # Rename zmk.uf2
