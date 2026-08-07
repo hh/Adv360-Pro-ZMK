@@ -1,23 +1,25 @@
 #!/usr/bin/env python3
 """Send a zmk-hogp serial command (!help, !hogp, !boot, ...) to the Adv360.
 
-Usage: kb-serial-cmd.py [!command]        (default: !help)
+Usage: kb-serial-cmd.py [!command] [left|right]   (default: !help, left)
 
-Opens the keyboard's CDC-ACM console (left half only — the right half
-has no USB data interface in normal mode), asserts DTR/RTS, sends the
-command, and echoes up to 2s of response. The console also streams debug
-logs, so expect noise around the reply. Needs rw on the tty (dialout
-group or sudo).
+Opens the chosen half's CDC-ACM console (the right half exposes one
+from the game-hogp builds onward; product string "Adv360 Pro rt"),
+asserts DTR/RTS, sends the command, and echoes up to 2s of response.
+The console also streams debug logs, so expect noise around the reply.
+Needs rw on the tty (dialout group or sudo).
 """
 import fcntl, glob, os, select, struct, sys, termios, time
 
 cmd = sys.argv[1] if len(sys.argv) > 1 else "!help"
+side = sys.argv[2] if len(sys.argv) > 2 else "left"
 if not cmd.startswith("!"):
     sys.exit("commands start with '!' (see zmk-hogp README)")
 
 devs = glob.glob("/dev/serial/by-id/usb-Kinesis_Corporation_Adv360_Pro_*")
+devs = [d for d in devs if ("_rt_" in d) == (side == "right")]
 if not devs:
-    sys.exit("no Adv360 serial console found (left half connected via USB?)")
+    sys.exit(f"no Adv360 {side}-half serial console found (connected via USB?)")
 
 fd = os.open(devs[0], os.O_RDWR | os.O_NOCTTY)
 attrs = termios.tcgetattr(fd)

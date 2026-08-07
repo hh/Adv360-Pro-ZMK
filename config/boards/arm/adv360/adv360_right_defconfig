@@ -59,3 +59,8 @@ CONFIG_ZMK_BLE_EXPERIMENTAL_FEATURES=y
 
 CONFIG_ZMK_BLE=y
 CONFIG_ZMK_USB=y
+
+# USB serial console + !commands (!boot etc.) so flashing needs no key combo.
+# No HOGP here — the left half is the BLE central; this is console-only.
+CONFIG_ZMK_USB_LOGGING=y
+CONFIG_ZMK_SERIAL_CMD=y

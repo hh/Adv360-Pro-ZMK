@@ -42,12 +42,11 @@ for side in $SIDES; do
   [[ -n "$uf2" ]] || { echo "no $side .uf2 in firmware/ — run make first" >&2; exit 1; }
   echo
   echo ">>> $side half: $(basename "$uf2")"
-  if [[ "$side" == left ]] && compgen -G "/dev/serial/by-id/usb-Kinesis_Corporation_Adv360_Pro_*" >/dev/null; then
-    echo "    Serial console found — sending !boot (zmk-hogp firmware)..."
-    sudo -n python3 bin/kb-serial-cmd.py '!boot' >/dev/null 2>&1 \
-      || echo "    !boot failed; fall back to: hold Mod + tap the left Tab-row inner-column key."
+  if sudo -n python3 bin/kb-serial-cmd.py '!boot' "$side" >/dev/null 2>&1; then
+    echo "    Serial console found — sent !boot to the $side half."
   else
-    echo "    Enter bootloader: hold Mod + tap the $side half's Tab-row inner-column key."
+    echo "    No $side-half console — enter bootloader manually:"
+    echo "    hold Mod + tap the $side half's Tab-row inner-column key."
   fi
   echo "    Waiting up to 180s for the ADV360PRO drive..."
   mp=$(wait_for_bootloader) || { echo "    timed out waiting for bootloader" >&2; exit 1; }
