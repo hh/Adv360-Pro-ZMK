@@ -95,3 +95,7 @@ CONFIG_BT_SMP_SC_PAIR_ONLY=n
 CONFIG_BT_KEYS_OVERWRITE_OLDEST=y
 # Increase max paired devices to accommodate HOGP trackpad
 CONFIG_BT_MAX_PAIRED=7
+# Trackpad + Logitech mouse simultaneously
+CONFIG_ZMK_HOGP_MAX_DEVICES=2
+# Auto-unpair conflicting bonds when re-pairing same device (fixes M720 re-pairing)
+CONFIG_BT_ID_UNPAIR_MATCHING_BONDS=y
