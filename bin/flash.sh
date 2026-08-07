@@ -20,8 +20,8 @@ esac
 
 newest_uf2() { ls -t firmware/*-"$1"-*.uf2 2>/dev/null | head -1; }
 
-wait_for_bootloader() { # echoes mountpoint of ADV360PRO, or fails after 180s
-  local dev mp deadline=$((SECONDS + 180))
+wait_for_bootloader() { # echoes mountpoint of ADV360PRO; FLASH_WAIT secs (default 180)
+  local dev mp deadline=$((SECONDS + ${FLASH_WAIT:-180}))
   while (( SECONDS < deadline )); do
     dev=$(lsblk -rno NAME,LABEL | awk '$2 == "ADV360PRO" {print "/dev/" $1; exit}')
     if [[ -n "${dev:-}" ]]; then
