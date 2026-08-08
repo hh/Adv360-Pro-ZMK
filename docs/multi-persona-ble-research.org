@@ -1,0 +1,151 @@
+#+TITLE: Multi-Persona BLE Research: One Keyboard, Two Bluetooth Devices?
+#+DATE: 2026-08-07
+#+AUTHOR: hh + Claude (three-agent research fan-out)
+
+* Question
+
+Can the Adv360 present itself as TWO simultaneous BLE devices — a plain
+keyboard persona (for iOS) and a pointer/trackpad persona (for Linux) — with
+hosts pairing to each independently ("pair twice per host")?
+
+Context: iPhone pairs to the keyboard but typing doesn't work; December
+firmware's BLE HID map is a composite of keyboard + consumer + mouse + Apple
+ADG trackpad digitizer collections.
+
+* Verdict, short form
+
+1. *The radio half is fully possible on our stack* (Zephyr 3.5 / nRF52840):
+   multiple identities (=bt_id_create=, =CONFIG_BT_ID_MAX=) and multiple
+   SIMULTANEOUS connectable advertising sets with different identities
+   (supported since Zephyr 2.6, PR #34848; controller support confirmed for
+   the split LL on nRF52840).
+2. *The GATT half is not*: Zephyr has ONE shared ATT/GATT table for all
+   connections and identities. No Zephyr version can hide services from
+   discovery per-connection (=BT_GATT_AUTHORIZATION_CUSTOM= arrives in 3.6
+   and only gates reads/writes, not discovery). Both personas' hosts see
+   the whole database, plus one shared GAP Device Name/Appearance.
+3. *The bonding half kills the original design*: Zephyr deliberately refuses
+   a second bond from the SAME remote to a DIFFERENT local identity
+   (resolving-list conflict; =bt_id_find_conflict()= in id.c, SMP responds
+   AUTH_REQUIREMENTS). One phone = one persona, ever. "Pair twice per host"
+   cannot work on this stack. Dual personas can only serve DIFFERENT hosts
+   different faces.
+4. *Nobody ships dual-persona*: every commercial keyboard+trackpad
+   (Brydge Pro+, Inateck KB04111, Mokibo Fusion) is a single composite BLE
+   device — and iPadOS demonstrably accepts composite keyboard+ADG-digitizer.
+   A dual-persona ZMK build would be novel, not a port.
+5. *The iPhone symptom probably isn't descriptor rejection at all*:
+   the recurring ZMK-on-iOS failure is a STALE CACHED HID DESCRIPTOR.
+   ZMK docs: "changes are made to the HID report descriptor which some hosts
+   may not pick up automatically over BLE. Be sure to remove and re-pair."
+   iOS caches GATT per bonded device aggressively. Symptom is exactly ours:
+   connects fine, no input.
+
+* Recommended path (cheapest first)
+
+** Step 0 — Forget & re-pair (zero cost, do first)
+On iPhone: Settings → Bluetooth → ⓘ → Forget This Device (drops iOS's cache).
+On keyboard: Mod+2 (profile 1), clear its bond (BT_CLR row, careful).
+Re-pair fresh. Likely fixes typing outright.
+Note: iPhone pointer only ever works via AssistiveTouch — keyboard-only on
+the phone is the realistic target regardless of architecture.
+
+** Step 1 — If still dead: strip trackpad from the BLE map only (SMALL, hours)
+No knob exists today: the trackpad collection enters the BLE map whenever
+=ZMK_HOGP_TRACKPAD_OUTPUT || ZMK_HOGP_ITRACK_OUTPUT= — the USB interface
+split (=ZMK_USB_HID_TRACKPAD_INTERFACE=) plays no role in the BLE map.
+The trick: the trackpad block is LAST in =zmk_hid_report_desc= and
+byte-identical to the standalone USB =zmk_hid_trackpad_desc=, so
+=read_hids_report_map= can serve the truncated length (same subtraction
+trick USB already uses), plus =#if=-out the trackpad characteristic block
+in hog.c. USB keeps the full surface (HID_1 trackpad interface). Linux
+loses nothing (full features ride USB; BLE keeps keyboard+mouse for the
+M720 bridge). Re-pair required after (descriptor caching again).
+
+** Step 2 — Two HID service instances, one connection (MEDIUM, days)
+Spec-legal (HOGP allows multiple HIDS instances; hosts enumerate each as a
+separate input device but BOND PER DEVICE). =BT_GATT_SERVICE_DEFINE= for a
+second service compiles cleanly; work is a second report-map array, moving
+mouse/trackpad chars out of hog_svc, and replacing hog.c's four hard-coded
+attribute indices (attrs[5]/[9]/[13]/ladder) with computed lookups.
+Host risk: two-HIDS devices are rarer and less battle-tested on mobile.
+Value now questionable given Step 0/1 likely suffice.
+
+** Step 3 — True dual persona (LARGE, 1-2+ weeks, partly blocked)
+"Two front doors, one interior": two identities + two legacy-PDU connectable
+adv sets (Kconfig: BT_EXT_ADV=y, BT_EXT_ADV_MAX_ADV_SET=2, BT_ID_MAX=2,
+BT_MAX_CONN>=2), register only ONE persona's HIDS at a time
+(=CONFIG_BT_GATT_DYNAMIC_DB= + Service Changed) and swap on connection.
+Hard constraints, no workaround:
+- same remote can bond only one persona (id.c resolve-list conflict)
+- no per-connection GATT view in ANY Zephyr; discovery-level hiding would
+  need forked att.c iteration (unsupported surgery) or a second radio
+- shared GAP name/appearance characteristic (global, runtime-settable only)
+- ble.c rewrite: adv state machine → ext-adv API, ~8 hardwired BT_ID_DEFAULT
+  call sites, profiles gain an identity dimension (settings schema change),
+  per-persona conn selection in all four hog.c send paths
+- iOS Service-Changed/HID re-enumeration historically flaky
+Park unless Steps 0-2 all fail AND different-hosts-different-faces becomes
+a real need.
+
+* Companion iOS app path (added after follow-up question)
+
+The "map all-the-things from the phone" idea needs no per-persona BLE tricks
+at all — the mapping lives in firmware; the phone only needs a control
+channel. And the channel mostly already exists:
+
+- *ZMK Studio's BLE GATT RPC transport is already in the vendored tree,
+  compiled out*: app/src/studio/gatt_rpc_transport.c (+ full studio/
+  subsystem: rpc.c, keymap_subsystem.c, msg_framing.c...). The keymap
+  already binds &studio_unlock on the Mod layer. Enabling CONFIG_ZMK_STUDIO
+  (+ its BLE transport) grows a live keymap-editing RPC service over BLE
+  that a CoreBluetooth app (or desktop Studio over USB) can speak.
+- WARNING — Studio flips layer indexing: with ZMK_STUDIO, status="reserved"
+  layers COUNT (keymap.c DT_INST_FOREACH_CHILD vs _STATUS_OKAY conditional),
+  so game moves 4 → 8 and the Mod-layer toggle must go back to &tog 8.
+  (Bonus: the four reserved color layers become real runtime-editable
+  Studio slots — their original purpose.)
+- The Studio RPC is protobuf, not text — for phone access to the !command
+  console (e.g. !pair the mouse from the phone, no USB needed), add a small
+  NUS-style GATT bridge feeding serial_cmd's process_command(); then any
+  BLE terminal app (nRF Connect for iOS) works with zero custom app code.
+- iPhone USB-serial is a dead end (no public API; MFi/DriverKit only,
+  DriverKit is Mac/iPad-only) — BLE GATT is the channel on iPhone.
+- Hard iOS limits regardless of app: apps can't consume the HID service
+  (OS claims 0x1812), can't synthesize system-wide input, can't remap other
+  apps' keystrokes. All remapping therefore belongs in firmware — which is
+  what Studio RPC does.
+
+Ladder: (A) CONFIG_ZMK_STUDIO=y + BLE transport + &tog 8 fix → prove with
+desktop Studio; (B) NUS console bridge → !commands from nRF Connect;
+(C) SwiftUI app wrapping both.
+
+* Key file/line map (vendored zmk, touchpad workspace)
+
+- hog.c: single BT_GATT_SERVICE_DEFINE lines 256-313; notification routing
+  hard-codes attrs[5] kbd / attrs[9] consumer / attrs[13] mouse / #if-ladder
+  trackpad (522-530); per-conn CCC handled by Zephyr, no subscription state
+  to migrate; all send paths use zmk_ble_active_profile_conn().
+- hid.h: zmk_hid_report_desc lines 105-466 (kbd, consumer, mouse under
+  ZMK_POINTING, ADG trackpad 258-465 under TRACKPAD||ITRACK_OUTPUT);
+  USB subtraction trick lines 468-475.
+- ble.c: ONE identity (no bt_id_create anywhere; BT_ID_DEFAULT hardwired at
+  ~8 sites incl. hogp_central.c:427); legacy single-set advertising
+  (ZMK_ADV_CONN_NAME line 58, update_advertising 164-207).
+- Vendored Zephyr 3.5.0: BT_EXT_ADV + BT_EXT_ADV_MAX_ADV_SET exist;
+  BT_GATT_AUTHORIZATION_CUSTOM does NOT (3.6+).
+
+* Sources
+
+- Zephyr: PR #34848 (concurrent connectable adv, v2.6), issue #31588,
+  PR #67615 (GATT authorization, v3.6), v3.5.0 adv.c/att.c/id.c/keys.c/smp.c
+- ZMK: pointing docs BLE re-pair warning; issues #2395, #1732, #378
+- Nordic DevZone: 93647 (composite recommended; two bt_hids_init fails),
+  104475 (multiple HIDS instances)
+- Apple: ADG PDF ch.15 (R23) trackpad descriptor; support 108938 (iPadOS
+  pointer), 111775 (iPhone AssistiveTouch only); dev forums 699205 (BLE
+  digitizer dead since iOS 13.4), 768586 (ADG clickpad works on Win11,
+  dead on macOS 14.7), 45989
+- Commercial: Brydge Pro+ firmware update to ADG descriptor (iPadOS 14.5+),
+  KhaosT Vision Pro gist (Brydge/Inateck correct-descriptor comparison;
+  visionOS blocks third-party trackpads)
