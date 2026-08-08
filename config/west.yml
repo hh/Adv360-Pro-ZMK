@@ -13,7 +13,7 @@ manifest:
       import: app/west.yml
     - name: zmk-hogp
       remote: hh
-      revision: 213c02279a76c08e590ed788f48b9fe04305c707
+      revision: 0f912e727c6cd1033ae3f2b4a5817afee647a26e
       import: false
   self:
     path: config
