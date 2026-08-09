@@ -14,20 +14,36 @@
 #
 # Run from the workspace root (the directory containing src/ and build/):
 #   bash src/Adv360-Pro-ZMK/bin/build-left-game.sh
-# Output: build/left-game-local/zephyr/zmk.uf2
+#   KB_NAME="Adv360 Alpha" bash src/Adv360-Pro-ZMK/bin/build-left-game.sh
+#
+# KB_NAME sets the Bluetooth keyboard name (CONFIG_ZMK_KEYBOARD_NAME) so a
+# fleet of Adv360s shows up distinctly in pairing lists. Keep it <= 16 chars
+# (longer is truncated in BLE advertisements). Renaming does NOT break
+# existing bonds — identity is the BT address, not the name; hosts show the
+# new name on next pairing/refresh. Each name builds into its own output
+# dir so fleet images can coexist.
+#
+# Output: build/left-game-<slug>/zephyr/zmk.uf2  (default slug: local)
 
 set -euo pipefail
 WORK=$(pwd)
 [ -d "$WORK/src/Adv360-Pro-ZMK" ] || { echo "run from the workspace root"; exit 1; }
 
+KB_NAME="${KB_NAME:-Adv360 Pro}"
+[ ${#KB_NAME} -le 16 ] || { echo "KB_NAME '$KB_NAME' is ${#KB_NAME} chars; BLE adv truncates past 16"; exit 1; }
+if [ "$KB_NAME" = "Adv360 Pro" ]; then SLUG=local; else SLUG=$(echo "$KB_NAME" | tr 'A-Z ' 'a-z-' | tr -cd 'a-z0-9-'); fi
+
 podman run --rm --network=host --security-opt label=disable \
   -v "$WORK:/work" -w /work/src/Adv360-Pro-ZMK \
   --entrypoint bash docker.io/zmkfirmware/zmk-build-arm:stable -c "
     west zephyr-export >/dev/null 2>&1
-    west build -p -d /work/build/left-game-local -b adv360_left -s zmk/app -- \
+    west build -p -d /work/build/left-game-$SLUG -b adv360_left -s zmk/app -- \
       -DZMK_CONFIG=/work/src/Adv360-Pro-ZMK/config \
       -DEXTRA_CONF_FILE=/work/src/Adv360-Pro-ZMK/config/boards/arm/adv360/adv360_left_debug.conf \
       -DCONFIG_ZMK_STUDIO=y \
-      -DCONFIG_ZMK_STUDIO_TRANSPORT_UART=n
+      -DCONFIG_ZMK_STUDIO_TRANSPORT_UART=n \
+      -DCONFIG_ZMK_KEYBOARD_NAME='\"$KB_NAME\"'
   "
-ls -la "$WORK/build/left-game-local/zephyr/zmk.uf2"
+echo "name: $KB_NAME"
+grep -E 'CONFIG_ZMK_KEYBOARD_NAME|CONFIG_BT_DEVICE_NAME=' "$WORK/build/left-game-$SLUG/zephyr/.config"
+ls -la "$WORK/build/left-game-$SLUG/zephyr/zmk.uf2"
