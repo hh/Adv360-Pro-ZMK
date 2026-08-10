@@ -79,8 +79,12 @@ ls -la "$WORK/build/left-istick-$SLUG/zephyr/zmk.uf2"
 
 # Archive immediately. Build dirs are purged storage, not an archive -- west
 # build -p deletes them, and a flashed-and-verified image is worth keeping.
+# Filename carries the zmk commit, not just the date. Several rebuilds a day is
+# normal while iterating, and a date-only name silently overwrites the image you
+# already flashed -- which makes "the new feature does nothing" impossible to
+# tell apart from "you are still running the old image".
 mkdir -p "$WORK/firmware"
-OUT="$WORK/firmware/adv360-left-inputstick_${SLUG}_$(date +%Y%m%d).uf2"
+OUT="$WORK/firmware/adv360-left-inputstick_${SLUG}_$(date +%Y%m%d)_zmk-$(repo_id "$WORK/src/Adv360-Pro-ZMK/zmk").uf2"
 cp "$WORK/build/left-istick-$SLUG/zephyr/zmk.uf2" "$OUT"
 echo "archived: $OUT"
 sha256sum "$OUT"
